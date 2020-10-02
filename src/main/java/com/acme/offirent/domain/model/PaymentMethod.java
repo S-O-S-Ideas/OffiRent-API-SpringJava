@@ -12,7 +12,7 @@ public class PaymentMethod{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
     private String cardNumber;
@@ -26,15 +26,17 @@ public class PaymentMethod{
     @NotNull
     private String cv;
 
-    // @OneToMany(mappedBy = "PaymentMethod") //TODO
-    // private List<AccountPaymentMethod> accountPaymentMethods;
+    // @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    // mappedBy = "accounts")
+    // private List<Account> accounts;
+    //TODO: GETTER SETTER
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public PaymentMethod setId(long id) {
+    public PaymentMethod setId(Long id) {
         this.id = id;
         return this;
     }
@@ -75,12 +77,5 @@ public class PaymentMethod{
         return this;
     }
 
-    // public List<AccountPaymentMethod> getAccountPaymentMethods() {
-    //     return accountPaymentMethods;
-    // }
-
-    // public PaymentMethod setAccountPaymentMethods(List<AccountPaymentMethod> accountPaymentMethods) {
-    //     this.accountPaymentMethods = accountPaymentMethods;
-    //     return this;
-    // }
+    
 }

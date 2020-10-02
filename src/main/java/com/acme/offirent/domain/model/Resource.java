@@ -30,11 +30,11 @@ public class Resource{
     @JsonIgnore
     private Office office;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public Resource setId(long id) {
+    public Resource setId(Long id) {
         this.id = id;
         return this;
     }
@@ -52,7 +52,7 @@ public class Resource{
         return quantity;
     }
 
-    public Resource setQuantity(long quantity) {
+    public Resource setQuantity(Long quantity) {
         this.quantity = quantity;
         return this;
     }
