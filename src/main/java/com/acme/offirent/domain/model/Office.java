@@ -51,14 +51,14 @@ public class Office {
     @JoinColumn(name="district_id", nullable = false)
     @JsonIgnore
     private District district;
-
+    /*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name ="account_id", nullable = false)
     @JsonIgnore
     private Account account;
 
     @OneToMany(mappedBy = "office")
-    private List<Resource> resources;
+    private List<Resource> resources;*/
 
     public Long getId() {
         return id;
@@ -159,7 +159,7 @@ public class Office {
         return this;
     }
 
-    public Account getAccount() {
+    /*public Account getAccount() {
         return account;
     }
 
@@ -175,5 +175,5 @@ public class Office {
     public Office setResources(List<Resource> resources) {
         this.resources = resources;
         return this;
-    }
+    }*/
 }
