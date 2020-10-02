@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class DistrictController {
+public class DistrictsController {
 
     @Autowired
     private DistrictService districtService;

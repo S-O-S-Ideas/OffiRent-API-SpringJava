@@ -12,7 +12,7 @@ public class Discount{
 
 
     @Id
-    @GeneratedValue(strategy=Generationtype.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     @NotNull
@@ -22,8 +22,8 @@ public class Discount{
     @NotNull
     private String description;
 
-    @OneToMany(mappedBy = "account") //TODO
-    private List<Account> accounts;
+    // @OneToMany(mappedBy = "account") //TODO
+    // private List<Account> accounts;
 
     public long getId() {
         return id;
@@ -52,12 +52,12 @@ public class Discount{
         return this;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
+    // public List<Account> getAccounts() {
+    //     return accounts;
+    // }
 
-    public Discount setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-        return this;
-    }
+    // public Discount setAccounts(List<Account> accounts) {
+    //     this.accounts = accounts;
+    //     return this;
+    // }
 }

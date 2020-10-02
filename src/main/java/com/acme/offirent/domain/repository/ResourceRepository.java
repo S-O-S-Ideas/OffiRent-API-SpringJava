@@ -1,6 +1,6 @@
 package com.acme.offirent.domain.repository;
 
-import com.acme.offirent.domain.model.Office;
+import com.acme.offirent.domain.model.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ResourceRepository extends JpaRepository<Resource, String> {
-    Page<Comment> findByOfficeId(Long officeId, Pageable pageable); // buscar por id oficina
-    Optional<Page<Comment>> findByNameAndOfficeId(String Name, Long officeId); // buscar implemento por nombre y id de oficina
+public interface ResourceRepository extends JpaRepository<Resource, Long> {
+    Page<Resource> findByOfficeId(Long officeId, Pageable pageable);
+    Optional<Resource> findByNameAndOfficeId(String Name, Long officeId);
 
 }

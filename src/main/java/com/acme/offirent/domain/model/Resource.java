@@ -1,9 +1,10 @@
 package com.acme.offirent.domain.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.annotation.processing.Generated;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,14 +12,14 @@ import java.util.List;
 public class Resource{
 
     @Id
-    @GeneratedValue(strategy=Generationtype.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     private String name;
 
     @NotNull
-    private long quantity;
+    private Long quantity;
 
     @Lob
     @NotNull
@@ -47,7 +48,7 @@ public class Resource{
         return this;
     }
 
-    public long getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 

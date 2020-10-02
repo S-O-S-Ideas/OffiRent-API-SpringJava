@@ -18,9 +18,9 @@ public class Departament {
     @Size(max = 100)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name ="country_id", nullable = false)
-    private Country country;
+    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    // @JoinColumn(name ="country_id", nullable = false)
+    // private Country country;
 
 
     @OneToMany(mappedBy = "departament")
@@ -44,14 +44,14 @@ public class Departament {
         return this;
     }
 
-    public Country getCountry() {
-        return country;
-    }
+    // public Country getCountry() {
+    //     return country;
+    // }
 
-    public Departament setCountry(Country country) {
-        this.country = country;
-        return this;
-    }
+    // public Departament setCountry(Country country) {
+    //     this.country = country;
+    //     return this;
+    // }
 
     public List<District> getDistricts() {
         return districts;

@@ -1,17 +1,17 @@
 package com.acme.offirent.domain.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.annotation.processing.Generated;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.List;
 @Entity
 @Table(name="payment_methods")
 public class PaymentMethod{
 
     @Id
-    @GeneratedValue(strategy=Generationtype.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     @NotNull
@@ -26,8 +26,8 @@ public class PaymentMethod{
     @NotNull
     private String cv;
 
-    @OneToMany(mappedBy = "PaymentMethod") //TODO
-    private List<AccountPaymentMethod> accountPaymentMethods;
+    // @OneToMany(mappedBy = "PaymentMethod") //TODO
+    // private List<AccountPaymentMethod> accountPaymentMethods;
 
 
     public long getId() {
@@ -75,12 +75,12 @@ public class PaymentMethod{
         return this;
     }
 
-    public List<AccountPaymentMethod> getAccountPaymentMethods() {
-        return accountPaymentMethods;
-    }
+    // public List<AccountPaymentMethod> getAccountPaymentMethods() {
+    //     return accountPaymentMethods;
+    // }
 
-    public PaymentMethod setAccountPaymentMethods(List<AccountPaymentMethod> accountPaymentMethods) {
-        this.accountPaymentMethods = accountPaymentMethods;
-        return this;
-    }
+    // public PaymentMethod setAccountPaymentMethods(List<AccountPaymentMethod> accountPaymentMethods) {
+    //     this.accountPaymentMethods = accountPaymentMethods;
+    //     return this;
+    // }
 }

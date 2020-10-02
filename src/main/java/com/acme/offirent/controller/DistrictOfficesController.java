@@ -32,7 +32,7 @@ public class DistrictOfficesController {
     @Autowired
     private ModelMapper mapper;
 
-    @Operation(summary = "Get Offices by District", description = "Get Offices for given District's id", tags = {"District"})
+    @Operation(summary = "Get Offices by District", description = "Get Offices for given District's id", tags = {"districts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Offices within the District with entered id",content =@Content(mediaType = "application/json") )
     })

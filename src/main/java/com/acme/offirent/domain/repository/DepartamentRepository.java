@@ -10,5 +10,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DepartamentRepository extends JpaRepository<Departament, Long> {
-    Page<Departament> findByCountryId (Long countryId, Pageable pageable);
+    //Page<Departament> findByCountryId (Long countryId, Pageable pageable);
 }

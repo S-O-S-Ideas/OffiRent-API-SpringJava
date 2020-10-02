@@ -1,23 +1,23 @@
 package com.acme.offirent.domain.service;
 
-import com.acme.offirent.domain.model.Office;
+import com.acme.offirent.domain.model.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ResourceService {
-    Page<Office> getAllResources(Pageable pageable);
-    Office getResourceById  (Long resourceId);
+    Page<Resource> getAllResources(Pageable pageable);
+    Resource getResourceById  (Long resourceId);
     
     //repositorymethods
-    Page<Comment> findByOfficeId(Long officeId, Pageable pageable); // buscar por id oficina
-    Page<Comment> findByNameAndOfficeId(String Name, Long officeId); // buscar implemento por nombre y id de oficina
+    Page<Resource> findByOfficeId(Long officeId, Pageable pageable); // buscar por id oficina
+    Resource findByNameAndOfficeId(String officeName, Long officeId); // buscar implemento por nombre y id de oficina
 
     //crud?
-    Office createResource(long officeId,Resource resource);
-    Office updateResource(long officeId,Long resourceId,Resource resourceRequest);
-    ResponseEntity<?> deleteResource(long officeId,Long resourceId);
+    Resource createResource(Long officeId,Resource resource);
+    Resource updateResource(Long officeId,Long resourceId,Resource resourceRequest);
+    ResponseEntity<?> deleteResource(Long officeId,Long resourceId);
 
 }

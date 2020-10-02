@@ -47,10 +47,10 @@ public class Office {
     @JsonIgnore
     private District district;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name ="account_id", nullable = false)
-    @JsonIgnore
-    private Account account;
+    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    // @JoinColumn(name ="account_id", nullable = false)
+    // @JsonIgnore
+    // private Account account;
 
     @OneToMany(mappedBy = "office") //TODO
     private List<Resource> resources;
@@ -154,14 +154,14 @@ public class Office {
         return this;
     }
 
-    public Account getAccount() {
-        return account;
-    }
+    // public Account getAccount() {
+    //     return account;
+    // }
 
-    public Office setAccount(Account account) {
-        this.account = account;
-        return this;
-    }
+    // public Office setAccount(Account account) {
+    //     this.account = account;
+    //     return this;
+    // }
 
     public List<Resource> getResources() {
         return resources;
