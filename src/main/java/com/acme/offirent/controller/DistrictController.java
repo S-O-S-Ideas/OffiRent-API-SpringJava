@@ -4,6 +4,10 @@ import com.acme.offirent.domain.model.District;
 import com.acme.offirent.domain.service.DistrictService;
 import com.acme.offirent.resource.DistrictResource;
 import com.acme.offirent.resource.SaveDistrictResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,27 +30,32 @@ public class DistrictController {
     @Autowired
     private ModelMapper mapper;
 
+    @Operation(summary = "Get District by Id", description = "Get District for given Id", tags = {"districts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "District returned", content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/districts/{id}")
     public DistrictResource getDistrictById(@PathVariable(name = "id") Long districtId){
         return convertToResource(districtService.getDistrictById(districtId));
     }
 
-    @GetMapping("/departaments/{id}/districts")
-    public Page<DistrictResource> getAllDistrictByDepartamentId(@PathVariable(name = "id") Long departamentId, Pageable pageable){
-        List<DistrictResource> districts=districtService.getAllDistrictByDepartamentId(departamentId, pageable)
-                .getContent().stream().map(this::convertToResource)
-                .collect(Collectors.toList());
 
-        int districtsCount= districts.size();
-        return new PageImpl<>(districts,pageable,districtsCount);
-    }
 
+
+    @Operation(summary = "Create District ",description = "Enter a new District at register",tags = {"districts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Enter a new Office for given information",content =@Content(mediaType = "application/json") )
+    })
     @PostMapping("/districts")
     public DistrictResource createDistrict(@Valid @RequestBody SaveDistrictResource resource){
         return convertToResource(
                 districtService.createDistrict(convertToEntity(resource)));
     }
 
+    @Operation(summary = "Delete District",description = "Delete District for given Id at register",tags = {"districts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete District for given Id",content =@Content(mediaType = "application/json") )
+    })
     @DeleteMapping("/districts/{id}")
     public ResponseEntity<?> deleteDistrict(@PathVariable(name = "id") Long districtId){
         return districtService.deleteDistrict(districtId);
