@@ -8,6 +8,7 @@ import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.service.OfficeService;
 import com.acme.offirent.exception.ResourceNotFoundException;
 import com.acme.offirent.service.OfficeServiceImpl;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class OfficeServiceImplIntegrationTest {
     }
 
     @Test
+    @DisplayName("When GetOfficeById With Valid Id Then Returns Office")
     public void whenGetOfficeByIdWithValidIdThenReturnsOffice(){
 
         //Arrange
@@ -69,6 +71,7 @@ public class OfficeServiceImplIntegrationTest {
     }
 
     @Test
+    @DisplayName("When GetOfficeById With Invalid Id Then Returns Resource Not Found Exception")
     public void whenGetOfficeByIdWithInvalidIdThenReturnsResourceNotFoundException(){
 
         //Arrange
@@ -93,6 +96,7 @@ public class OfficeServiceImplIntegrationTest {
 
 
     @Test
+    @DisplayName("When GetAllOfficesByDistrictId With Valid DistrictId Then Returns Offices")
     public void whenGetAllOfficesByDistrictIdWithValidDistrictIdThenReturnsOffices(){
 
         //Arrange
@@ -273,6 +277,7 @@ public class OfficeServiceImplIntegrationTest {
     }
 
     @Test
+    @DisplayName("When GetAllOfficesByDistrictId With Invalid DistrictId Then Returns Resource Resource Not Found Exception")
     public void whenGetAllOfficesByDistrictIdWithInvalidDistrictIdThenReturnsResourceResourceNotFoundException(){
 
         //Arrange
@@ -337,7 +342,8 @@ public class OfficeServiceImplIntegrationTest {
 
 
     @Test
-    public void whenGetAllOfficesByPriceLessThanEqualWithValidDistrictThenReturnsOffices(){
+    @DisplayName("When GetAllOfficesByPriceLessThanEqual With Valid Price Then Returns Offices")
+    public void whenGetAllOfficesByPriceLessThanEqualWithValidPriceThenReturnsOffices(){
 
         //Arrange
         Float price = 50f;
@@ -519,6 +525,7 @@ public class OfficeServiceImplIntegrationTest {
     }
 
     @Test
+    @DisplayName("When GetAllOfficesByPriceLessThanEqual With Invalid Price Then Returns Resource Not Found Exception")
     public void whenGetAllOfficesByPriceLessThanEqualWithInvalidPriceThenReturnsResourceNotFoundException(){
 
         //Arrange
