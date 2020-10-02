@@ -5,16 +5,16 @@ import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.service.OfficeService;
 import com.acme.offirent.resource.OfficeResource;
 import com.acme.offirent.resource.SaveOfficeResource;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,8 +66,21 @@ public class OfficeController {
         return new PageImpl<>(offices,pageable,officesCount);
     }
 
-    
+    @PostMapping("/offices")
+    public OfficeResource createOffice(@Valid @RequestBody SaveOfficeResource resource){
+        return convertToResource(
+                officeService.createOffice(convertToEntity(resource)));
+    }
 
+    @PutMapping("/offices/{id}")
+    public OfficeResource updateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody SaveOfficeResource resource){
+        return convertToResource(officeService.updateOffice(officeId,convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/offices/{id}")
+    public ResponseEntity<?> deleteOffice(@PathVariable(name="id") Long officeId){
+        return officeService.deleteOffice(officeId);
+    }
 
     private Office convertToEntity(SaveOfficeResource resource){
         return mapper.map(resource, Office.class);
