@@ -1,10 +1,5 @@
 package com.acme.offirent.domain.model;
-
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -57,7 +52,7 @@ public class Office {
     @JsonIgnore
     private Account account;
 
-    @OneToMany(mappedBy = "office")
+    @OneToMany(mappedBy = "office") //TODO
     private List<Resource> resources;
 
     public Long getId() {
