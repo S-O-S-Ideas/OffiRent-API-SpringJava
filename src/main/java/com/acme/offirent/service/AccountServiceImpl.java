@@ -28,17 +28,18 @@ public class AccountServiceImpl implements AccountService{
     public Account getAccountId(Long accountId){
         return accountRepository.findById(accountId)
                 .orElseThrow(()->
-                        new ResourceNotFoundException("Account", "Id", accountId);
+                        new ResourceNotFoundException("Account", "Id", accountId));
     }
 
-    @Override
+    //TODO
+   /* @Override
     public Page <Account> getAllAccountsByReservationId(Long reservationId, Pageable pageable){
         return reservationRepository.findById(reservationId).map( reservation -> {
             List<Account> accounts = reservation.getAccounts();
             int accountsCount = accounts.size();
             return new PageImpl<>(accounts, pageable, accountsCount);
         }).orElseThrow(()-> new ResourceNotFoundException("Reservation", "Id", reservationId));
-    }
+    }*/
 
     @Override
     public Page <Account> getAllAccountsByOfficeId(Long officeId, Pageable pageable){
