@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -23,37 +24,41 @@ public class Office {
     private Long capacity;
 
     @NotNull
-    private Boolean allowResource;
+    private boolean allowResource;
 
     @NotNull
-    private Float score;
+    private float score;
 
-    @Lob
     @NotNull
     private String description;
 
     @NotNull
-    private Float price;
+    private float price;
 
     @NotNull
-    private Boolean status;
+    private boolean status;
 
-    @Lob
     @NotNull
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="district_id", nullable = false)
+    @JoinColumn(name="district_id")
     @JsonIgnore
     private District district;
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name ="account_id", nullable = false)
-    @JsonIgnore
-    private Account account;
 
-    @OneToMany(mappedBy = "office")
-    private List<Resource> resources;*/
+    public Office(@NotNull String address, @NotNull Long floor, @NotNull Long capacity, @NotNull boolean allowResource, @NotNull float score, @NotNull String description, @NotNull float price, @NotNull boolean status, @NotNull String comment) {
+        this.address = address;
+        this.floor = floor;
+        this.capacity = capacity;
+        this.allowResource = allowResource;
+        this.score = score;
+        this.description = description;
+        this.price = price;
+        this.status = status;
+        this.comment = comment;
+    }
+
+    public Office(){}
 
     public Long getId() {
         return id;
@@ -91,20 +96,20 @@ public class Office {
         return this;
     }
 
-    public Boolean getAllowResource() {
+    public boolean getAllowResource() {
         return allowResource;
     }
 
-    public Office setAllowResource(Boolean allowResource) {
+    public Office setAllowResource(boolean allowResource) {
         this.allowResource = allowResource;
         return this;
     }
 
-    public Float getScore() {
+    public float getScore() {
         return score;
     }
 
-    public Office setScore(Float score) {
+    public Office setScore(float score) {
         this.score = score;
         return this;
     }
@@ -118,20 +123,20 @@ public class Office {
         return this;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public Office setPrice(Float price) {
+    public Office setPrice(float price) {
         this.price = price;
         return this;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public Office setStatus(Boolean status) {
+    public Office setStatus(boolean status) {
         this.status = status;
         return this;
     }
@@ -153,6 +158,16 @@ public class Office {
         this.district = district;
         return this;
     }
+    /*
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name ="account_id", nullable = false)
+    @JsonIgnore
+    private Account account;
+
+    @OneToMany(mappedBy = "office")
+    private List<Resource> resources;*/
+
+
 
     /*public Account getAccount() {
         return account;

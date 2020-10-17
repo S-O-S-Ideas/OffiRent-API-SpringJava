@@ -3,10 +3,13 @@ package com.acme.offirent.resource;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class SaveOfficeResource {
 
     @NotNull
+    @NotBlank
+    @Size(max = 100)
     private String address;
 
     @NotNull
@@ -16,23 +19,26 @@ public class SaveOfficeResource {
     private Long capacity;
 
     @NotNull
-    private Boolean allowResource;
+    private boolean allowResource;
 
     @NotNull
-    private Float score;
+    private float score;
 
-    @Lob
     @NotNull
+    @NotBlank
+    @Size(max = 250)
     private String description;
 
     @NotNull
-    private Float price;
+    private float price;
 
     @NotNull
-    private Boolean status;
+    private boolean status;
 
-    @Lob
+
     @NotNull
+    @NotBlank
+    @Size(max = 250)
     private String comment;
 
     public String getAddress() {
@@ -62,20 +68,20 @@ public class SaveOfficeResource {
         return this;
     }
 
-    public Boolean getAllowResource() {
+    public boolean getAllowResource() {
         return allowResource;
     }
 
-    public SaveOfficeResource setAllowResource(Boolean allowResource) {
+    public SaveOfficeResource setAllowResource(boolean allowResource) {
         this.allowResource = allowResource;
         return this;
     }
 
-    public Float getScore() {
+    public float getScore() {
         return score;
     }
 
-    public SaveOfficeResource setScore(Float score) {
+    public SaveOfficeResource setScore(float score) {
         this.score = score;
         return this;
     }
@@ -89,20 +95,20 @@ public class SaveOfficeResource {
         return this;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public SaveOfficeResource setPrice(Float price) {
+    public SaveOfficeResource setPrice(float price) {
         this.price = price;
         return this;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public SaveOfficeResource setStatus(Boolean status) {
+    public SaveOfficeResource setStatus(boolean status) {
         this.status = status;
         return this;
     }

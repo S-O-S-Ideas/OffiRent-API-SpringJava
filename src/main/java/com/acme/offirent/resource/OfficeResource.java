@@ -1,25 +1,18 @@
 package com.acme.offirent.resource;
 
+import javax.validation.constraints.NotNull;
+
 public class OfficeResource {
 
     private Long id;
-
     private String address;
-
     private Long floor;
-
     private Long capacity;
-
-    private Boolean allowResource;
-
-    private Float score;
-
+    private boolean allowResource;
+    private float score;
     private String description;
-
-    private Float price;
-
-    private Boolean status;
-
+    private float price;
+    private boolean status;
     private String comment;
 
     public Long getId() {
@@ -58,20 +51,20 @@ public class OfficeResource {
         return this;
     }
 
-    public Boolean getAllowResource() {
+    public boolean getAllowResource() {
         return allowResource;
     }
 
-    public OfficeResource setAllowResource(Boolean allowResource) {
+    public OfficeResource setAllowResource(boolean allowResource) {
         this.allowResource = allowResource;
         return this;
     }
 
-    public Float getScore() {
+    public float getScore() {
         return score;
     }
 
-    public OfficeResource setScore(Float score) {
+    public OfficeResource setScore(float score) {
         this.score = score;
         return this;
     }
@@ -85,20 +78,20 @@ public class OfficeResource {
         return this;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public OfficeResource setPrice(Float price) {
+    public OfficeResource setPrice(float price) {
         this.price = price;
         return this;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public OfficeResource setStatus(Boolean status) {
+    public OfficeResource setStatus(boolean status) {
         this.status = status;
         return this;
     }

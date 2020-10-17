@@ -85,8 +85,7 @@ public class OfficeController {
     @PostMapping("/offices")
     public OfficeResource createOffice(@Valid @RequestBody SaveOfficeResource resource){
         Office office = convertToEntity(resource);
-        return convertToResource(
-                officeService.createOffice(office));
+        return convertToResource(officeService.createOffice(office));
     }
 
 
