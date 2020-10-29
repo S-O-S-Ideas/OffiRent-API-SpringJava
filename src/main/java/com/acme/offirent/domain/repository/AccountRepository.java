@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    Page <Account> findByPaymentMethodId (Long PaymentMethodId, Pageable pageable);
-    Optional <Page<Account>> findByReservationId (Long reservationId, Pageable);
-    Optional <Page<Account>> findByOfficeId (Long officeId, Pageable);
+    //Page <Account> findByPaymentMethodId (Long PaymentMethodId, Pageable pageable);
+    //Optional <Page<Account>> findByReservationId (Long reservationId, Pageable);
+    //Optional <Page<Account>> findByOfficeId (Long officeId, Pageable);
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -37,9 +36,12 @@ public class Account{
     @NotNull
     private Long phone;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    mappedBy = "payment_methods")
-    private List<PaymentMethod> payment_methods;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name ="account_payment_methods",
+    joinColumns = {@JoinColumn(name = "account_id")},
+    inverseJoinColumns = {@JoinColumn(name = "payment_method_id")})
+    private List<PaymentMethod> paymentMethods;
 
     @OneToMany(mappedBy = "account")
     private List<Office> offices;
@@ -124,12 +126,12 @@ public class Account{
         return this;
     }
 
-    public List<PaymentMethod> getPayment_methods() {
-        return payment_methods;
+    public List<PaymentMethod> getPaymentMethods() {
+        return paymentMethods;
     }
 
-    public Account setPayment_methods(List<PaymentMethod> payment_methods) {
-        this.payment_methods = payment_methods;
+    public Account setPaymentMethods(List<PaymentMethod> payment_methods) {
+        this.paymentMethods = payment_methods;
         return this;
     }
 

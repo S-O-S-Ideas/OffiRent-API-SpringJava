@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account getAccountId(Long accountId){
+    public Account getAccountById(Long accountId){
         return accountRepository.findById(accountId)
                 .orElseThrow(()->
                         new ResourceNotFoundException("Account", "Id", accountId));
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService{
             return new PageImpl<>(accounts, pageable, accountsCount);
         }).orElseThrow(()-> new ResourceNotFoundException("Reservation", "Id", reservationId));
     }*/
-
+/*
     @Override
     public Page <Account> getAllAccountsByOfficeId(Long officeId, Pageable pageable){
         return officeRepository.findById(officeId).map( office -> {
@@ -49,14 +49,14 @@ public class AccountServiceImpl implements AccountService{
             return new PageImpl<>(accounts, pageable, accountsCount);
         }).orElseThrow(()-> new ResourceNotFoundException("Office", "Id", officeId));
     }
-
+*/
     @Override
     public Account createAccount (Account account) {
         return accountRepository.save(account);
     }
 
     @Override
-    public Account updateAccount(Long accountId, Account officeRequest) {
+    public Account updateAccount(Long accountId, Account accountRequest) {
         return accountRepository.findById(accountId).map(account->{
             account.setEmail(accountRequest.getEmail());
             account.setPassword(accountRequest.getPassword());

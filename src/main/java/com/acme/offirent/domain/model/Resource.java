@@ -1,6 +1,9 @@
 package com.acme.offirent.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
@@ -27,6 +30,7 @@ public class Resource{
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="office_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Office office;
 

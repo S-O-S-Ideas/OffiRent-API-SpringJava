@@ -1,5 +1,8 @@
 package com.acme.offirent.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,6 +49,17 @@ public class Office {
     @JsonIgnore
     private District district;
 
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name ="account_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Account account;
+
+    @OneToMany(mappedBy = "office")
+    private List<Resource> resources;
+
+
     public Office(@NotNull String address, @NotNull Long floor, @NotNull Long capacity, @NotNull boolean allowResource, @NotNull float score, @NotNull String description, @NotNull float price, @NotNull boolean status, @NotNull String comment) {
         this.address = address;
         this.floor = floor;
@@ -59,6 +73,10 @@ public class Office {
     }
 
     public Office(){}
+
+    public Account getAccount() {
+        return account;
+    }
 
     public Long getId() {
         return id;
@@ -158,20 +176,6 @@ public class Office {
         this.district = district;
         return this;
     }
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name ="account_id", nullable = false)
-    @JsonIgnore
-    private Account account;
-
-    @OneToMany(mappedBy = "office")
-    private List<Resource> resources;*/
-
-
-
-    /*public Account getAccount() {
-        return account;
-    }
 
     public Office setAccount(Account account) {
         this.account = account;
@@ -185,5 +189,6 @@ public class Office {
     public Office setResources(List<Resource> resources) {
         this.resources = resources;
         return this;
-    }*/
+    }
+
 }

@@ -26,9 +26,9 @@ public class PaymentMethod{
     @NotNull
     private String cv;
 
-    // @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    // mappedBy = "accounts")
-    // private List<Account> accounts;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    mappedBy = "paymentMethods")
+    private List<Account> accounts;
     //TODO: GETTER SETTER
 
 
