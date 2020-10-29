@@ -59,6 +59,20 @@ public class Office {
     @OneToMany(mappedBy = "office")
     private List<Resource> resources;
 
+    /* // Relationship with class Reservation
+    @OneToMany(mappedBy = "office")
+    private  List<Reservation> reservations;
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public Office setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+        return this;
+    }
+    */
+
 
     public Office(@NotNull String address, @NotNull Long floor, @NotNull Long capacity, @NotNull boolean allowResource, @NotNull float score, @NotNull String description, @NotNull float price, @NotNull boolean status, @NotNull String comment) {
         this.address = address;
