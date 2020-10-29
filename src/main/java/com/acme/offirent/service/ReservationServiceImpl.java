@@ -4,6 +4,7 @@ import com.acme.offirent.domain.model.Reservation;
 import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.ReservationRepository;
 import com.acme.offirent.domain.service.ReservationService;
+import com.acme.offirent.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
