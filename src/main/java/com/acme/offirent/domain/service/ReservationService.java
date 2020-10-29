@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ReservationService {
-    Page <Reservation> getAllReservations(Pageable pageable);
-    Reservation getReservationById (Long reservationId);
+
+    Reservation getReservationByIdAndAccountId (Long accountId, Long reservationId);
     Page<Reservation> getAllReservationsByAccountId(Long accountId,Pageable pageable);
-    Reservation createReservation(Reservation reservation);
-    Reservation updateReservation(Long reservationId, Reservation reservationRequest);
-    ResponseEntity<?> deleteReservation(Long reservationId);
+    Reservation createReservation(Long accountId, Reservation reservation);
+    Reservation updateReservation(Long accountId, Long reservationId, Reservation reservationRequest);
+    ResponseEntity<?> deleteReservation(Long accountId, Long reservationId);
 }

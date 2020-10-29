@@ -75,6 +75,14 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
+    public Office rateOffice(Long officeId, Office officeRequest) {
+        Office office = officeRepository.findById(officeId)
+                .orElseThrow(()->new ResourceNotFoundException("Office","Id",officeId));
+        office.setScore(officeRequest.getScore());
+        return officeRepository.save(office);
+    }
+
+    @Override
     public ResponseEntity<?> deleteOffice(Long officeId) {
         return officeRepository.findById(officeId).map(office -> {
             officeRepository.delete(office);

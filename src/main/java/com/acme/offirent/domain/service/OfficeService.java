@@ -16,6 +16,7 @@ public interface OfficeService {
 
     Office createOffice(Office office);
     Office updateOffice(Long officeId,Office officeRequest);
+    Office rateOffice(Long officeId, Office officeRequest);
     ResponseEntity<?> deleteOffice(Long officeId);
 
 }

@@ -20,11 +20,3 @@ public class SaveReservationResource {
 
 
 }
-/*
-
-Long id;
-Boolean status;
-Date initialDate;
-Date endDate;
-
- */

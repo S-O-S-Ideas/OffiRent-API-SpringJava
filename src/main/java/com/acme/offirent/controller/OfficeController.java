@@ -88,6 +88,14 @@ public class OfficeController {
         return convertToResource(officeService.createOffice(office));
     }
 
+    @Operation(summary = "Rate a Office",description = "Rate Office for given Id",tags = {"offices"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rate a office for given Id",content =@Content(mediaType = "application/json") )
+    })
+    @PatchMapping("/offices/{id}")
+    public OfficeResource rateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody SaveOfficeResource resource){
+        return convertToResource(officeService.rateOffice(officeId,convertToEntity(resource)));
+    }
 
     @Operation(summary = "Update Offices",description = "Update Office for given Id",tags = {"offices"})
     @ApiResponses(value = {
