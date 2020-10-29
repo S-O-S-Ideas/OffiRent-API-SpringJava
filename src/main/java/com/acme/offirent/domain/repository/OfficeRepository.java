@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfficeRepository extends JpaRepository<Office, Long> {
-       Page<Office> findByDistrictId (Long districtId, Pageable pageable);   //al final no se llega a utilizar
-       Optional<Page<Office>> findByPriceLessThanEqual (Float price, Pageable pageable);
-
+       Page<Office> findByDistrictIdOrderByAccount_PremiumDesc (Long districtId, Pageable pageable);   //al final no se llega a utilizar
+       Optional<Page<Office>> findByPriceLessThanEqualOrderByAccount_PremiumDesc (Float price, Pageable pageable);
+       Page<Office> findOfficesByAccount_PremiumDesc ();
 }
