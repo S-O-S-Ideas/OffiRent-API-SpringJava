@@ -158,14 +158,14 @@ public class Office {
         this.district = district;
         return this;
     }
-    /*
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name ="account_id", nullable = false)
     @JsonIgnore
     private Account account;
 
     @OneToMany(mappedBy = "office")
-    private List<Resource> resources;*/
+    private List<Resource> resources;
 
 
 

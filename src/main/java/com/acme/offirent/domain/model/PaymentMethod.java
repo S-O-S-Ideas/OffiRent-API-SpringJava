@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
+
+
 @Entity
 @Table(name="payment_methods")
 public class PaymentMethod{

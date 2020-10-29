@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name="departament")
+@Table(name="departaments")
 public class Departament {
 
     @Id

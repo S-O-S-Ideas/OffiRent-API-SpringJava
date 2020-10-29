@@ -13,17 +13,17 @@ public class Discount{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull
-    private float percentage;
+    private Float percentage;
 
     @Lob
     @NotNull
     private String description;
 
-    // @OneToMany(mappedBy = "account") //TODO
-    // private List<Account> accounts;
+    @OneToMany(mappedBy = "account") //TODO
+    private List<Account> accounts;
 
     public long getId() {
         return id;
