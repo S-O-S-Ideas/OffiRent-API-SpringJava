@@ -18,7 +18,7 @@ public class Account{
     private String email;
 
     @NotNull
-    private Long password;
+    private String password;
 
     @NotNull
     private String identification;
@@ -35,6 +35,9 @@ public class Account{
 
     @NotNull
     private Long phone;
+
+    @NotNull
+    private boolean premium;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -72,11 +75,11 @@ public class Account{
         return this;
     }
 
-    public Long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public Account setPassword(Long password) {
+    public Account setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -123,6 +126,15 @@ public class Account{
 
     public Account setPhone(Long phone) {
         this.phone = phone;
+        return this;
+    }
+
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public Account setPremium(boolean premium) {
+        this.premium = premium;
         return this;
     }
 

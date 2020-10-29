@@ -6,15 +6,17 @@ public class AccountResource {
 
     private String email;
 
-    private Long password;
+    private String password;
 
     private String identification;
 
-    private Long acc_type;
+    private Long accType;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     private Long phone;
+
+    private boolean premium;
 }

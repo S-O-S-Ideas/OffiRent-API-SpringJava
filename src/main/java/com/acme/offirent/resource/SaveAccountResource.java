@@ -8,35 +8,31 @@ import javax.validation.constraints.Size;
 public class SaveAccountResource {
 
     @NotNull
-    @NotBlank
     @Size(max = 30)
     private String email;
 
     @NotNull
-    @NotBlank
     @Size(max = 30)
-    private Long password;
+    private String password;
 
     @NotNull
-    @NotBlank
     private String identification;
 
     @Lob
     @NotNull
-    @NotBlank
-    private Long acc_type;
-
-    @NotNull
-    @NotBlank
-    @Size(max = 30)
-    private String first_name;
-
-    @NotNull
-    @NotBlank
-    @Size(max = 30)
-    private String last_name;
+    private Long accType;
 
     @NotNull
     @Size(max = 30)
+    private String firstName;
+
+    @NotNull
+    @Size(max = 30)
+    private String lastName;
+
+    @NotNull
     private Long phone;
+
+    @NotNull
+    private boolean premium;
 }

@@ -34,7 +34,7 @@ public class AccountController{
 
     @Operation(summary = "Get Accounts", description = "Get all Accounts by Pages", tags = {"accounts"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "All Accounts returned", content = @Content
+            @ApiResponse(responseCode = "200", description = "All Accounts returned", content = @Content
                     (mediaType = "application/json"))
     })
     @GetMapping("/accounts")
@@ -50,7 +50,7 @@ public class AccountController{
 
     @Operation(summary = "Get Account by Id", description = "Get Account for given Id", tags = {"accounts"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "Account returned", content = @Content
+            @ApiResponse(responseCode = "200", description = "Account returned", content = @Content
                     (mediaType = "application/json"))
     })
     @GetMapping("/accounts/{id}")
@@ -60,7 +60,7 @@ public class AccountController{
 
     @Operation(summary = "Create Accounts ",description = "Create a new Account",tags = {"accounts"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "Create a new Account for given information",content =@Content(mediaType = "application/json") )
+            @ApiResponse(responseCode = "200", description = "Create a new Account for given information",content =@Content(mediaType = "application/json") )
     })
     @PostMapping("/accounts")
     public AccountResource createAccount(@Valid @RequestBody SaveAccountResource resource){
@@ -70,7 +70,7 @@ public class AccountController{
 
     @Operation(summary = "Update Accounts",description = "Update Account for given Id",tags = {"accounts"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "Update information of account for given Id",content =@Content(mediaType = "application/json") )
+            @ApiResponse(responseCode = "200", description = "Update information of account for given Id",content =@Content(mediaType = "application/json") )
     })
     @PutMapping("/account/{id}")
     public AccountResource updateAccount(@PathVariable(name = "id")   Long accountId,@Valid @RequestBody SaveAccountResource resource){
@@ -79,7 +79,7 @@ public class AccountController{
 
     @Operation(summary = "Delete Accounts",description = "Delete Account for given Id",tags = {"accounts"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "Delete Account for given Id",content =@Content(mediaType = "application/json") )
+            @ApiResponse(responseCode = "200", description = "Delete Account for given Id",content =@Content(mediaType = "application/json") )
     })
     @DeleteMapping("/accounts/{id}")
     public ResponseEntity<?> deleteAccount(@PathVariable(name="id") Long accountId){
