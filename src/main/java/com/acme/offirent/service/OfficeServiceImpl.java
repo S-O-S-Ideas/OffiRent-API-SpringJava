@@ -67,15 +67,16 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public Office createOffice(Office office, Long accountId){
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow( ()->new ResourceNotFoundException("Account","Id",accountId) );
-        int Quantity = officeRepository.findByAccountId(accountId).size();
-        if (Quantity <=15 || account.isPremium()) {
-            office.setAccount(account);
-            return officeRepository.save(office);
-        }
-        else
-            throw new LockedActionException("Cant create an Office due to user is not premium and cant have more than 15 offices");
+        return accountRepository.findById(accountId).map(account -> {
+            int Quantity = officeRepository.findByAccountId(accountId).size();
+            if (Quantity <=15 || account.isPremium()) {
+                office.setAccount(account);
+                return officeRepository.save(office);
+            }
+            else
+                throw new LockedActionException("Cant create an Office due to user is not premium and cant have more than 15 offices");
+        }).orElseThrow( ()->new ResourceNotFoundException("Account","Id",accountId) );
+
     }
 
     @Override
