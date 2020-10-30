@@ -98,6 +98,15 @@ public class OfficeController {
         return convertToResource(officeService.updateOffice(officeId,convertToEntity(resource)));
     }
 
+    @Operation(summary = "Active Offices",description = "Active a deactivated Office",tags = {"offices"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Change the office's status to activated",content =@Content(mediaType = "application/json") )
+    })
+    @PutMapping("/offices/{accountId}/{id}")
+    public  OfficeResource activeOffice(@PathVariable(name = "accountId")Long accountId,@PathVariable(name = "id") Long officeId){
+        return  convertToResource(officeService.activeOffice(accountId,officeId));
+    }
+
     @Operation(summary = "Delete Offices",description = "Delete Office for given Id",tags = {"offices"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete office for given Id",content =@Content(mediaType = "application/json") )
