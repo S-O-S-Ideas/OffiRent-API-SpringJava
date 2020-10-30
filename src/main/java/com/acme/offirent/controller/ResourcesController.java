@@ -43,7 +43,6 @@ public class ResourcesController{
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
-
     @Operation(summary = "Get resource by resourceId",description = "Get resources by a given resourceId",tags = {"resources"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get resources with by a given resourceId",content =@Content(mediaType = "application/json") )
@@ -52,6 +51,8 @@ public class ResourcesController{
     public ResourceResource getResourceById(@PathVariable(name = "id") Long resourceId){
         return convertToResource(resourceService.getResourceById(resourceId)); 
     }
+
+
 
 
     private Resource convertToEntity(SaveResourceResource resource){return  mapper.map(resource, Resource.class);}

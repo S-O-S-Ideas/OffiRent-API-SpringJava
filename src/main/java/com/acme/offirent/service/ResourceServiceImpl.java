@@ -31,7 +31,6 @@ public class ResourceServiceImpl implements ResourceService {
         return resourceRepository.findById(resourceId)
             .orElseThrow(()->
             new ResourceNotFoundException("Resource","Id","resourceId"));
-            
     }
     
     //repositorymethods
@@ -48,16 +47,9 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource createResource(Long officeId,Resource resource){
-        Resource newresource =new Resource();
-        newresource.setName(resource.getName());
-        newresource.setQuantity(resource.getQuantity());
-        newresource.setOffice(officeRepository.findById(officeId)
-        .orElseThrow(()->
-        new ResourceNotFoundException("Office","Id","officeId")));
-        newresource.setComment(resource.getComment());
-
-        return resourceRepository.save(newresource);
-
+        resource.setOffice(officeRepository.findById(officeId)
+        .orElseThrow(()-> new ResourceNotFoundException("Office","Id","officeId")));
+        return resourceRepository.save(resource);
     }
 
     @Override
@@ -69,14 +61,10 @@ public class ResourceServiceImpl implements ResourceService {
             resource.setName(resourceRequest.getName());
             resource.setComment(resourceRequest.getComment());
             resource.setQuantity(resourceRequest.getQuantity());
-
             return resourceRepository.save(resource);
         })
         .orElseThrow(()->
         new ResourceNotFoundException("Resource","Id","resourceId"));
-        
-        
-
     }
 
     @Override
@@ -90,7 +78,6 @@ public class ResourceServiceImpl implements ResourceService {
         })
         .orElseThrow(()->
         new ResourceNotFoundException("Resource","Id","resourceId"));
-
     }
 
 
