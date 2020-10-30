@@ -1,14 +1,18 @@
 package com.acme.offirent.resource;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class PaymentMethodResource {
-
     private Long id;
-
-    private String card_number;
-
-    private String owner_name;
-
-    private String due_date;
-
+    
+    private String cardNumber;
+    
+    private String ownerName;
+    
+    private String dueDate;
+    
     private String cv;
 }

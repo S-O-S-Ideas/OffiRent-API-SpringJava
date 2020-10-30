@@ -1,26 +1,23 @@
 package com.acme.offirent.resource;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
 public class SavePaymentMethodResource {
+    @NotNull
+    private String cardNumber;
 
     @NotNull
-    @NotBlank
-    private Long id;
+    private String ownerName;
 
     @NotNull
-    @NotBlank
-    private String card_number;
+    private String dueDate;
 
     @NotNull
-    private String owner_name;
-
-    @NotNull
-    @NotBlank
-    private String due_date;
-
-    @NotNull
-    @NotBlank
     private String cv;
 }

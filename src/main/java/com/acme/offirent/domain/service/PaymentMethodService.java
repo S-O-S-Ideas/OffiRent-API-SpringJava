@@ -1,6 +1,7 @@
 
 package com.acme.offirent.domain.service;
 
+import com.acme.offirent.domain.model.PaymentMethod;
 import com.acme.offirent.domain.model.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,12 +11,11 @@ import java.util.Optional;
 
 
 public interface PaymentMethodService {
-    //TODO
-    //repositorymethods
     //Page<Resource> findByAccountIdAndPaymentMethodId(Long AccountId, long PaymentMethodId);
 
+    PaymentMethod getById(Long paymentMethodId);
     //crud?
-    //Resource createPaymentMethod(Long AccountId,Long PaymentMethodId,PaymentMethod paymentMethod);
-    //Resource updatePaymentMethod(Long AccountId,Long PaymentMethodId,Resource resourceRequest);
-    //ResponseEntity<?> deletePaymentMethod(Long AccountId,Long PaymentMethodId);    
+    PaymentMethod createPaymentMethod(PaymentMethod paymentMethod);
+    PaymentMethod updatePaymentMethod(Long paymentMethodId,PaymentMethod resourceRequest);
+    ResponseEntity<?> deletePaymentMethod(Long paymentMethodId);
 }
