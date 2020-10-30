@@ -1,14 +1,17 @@
 package com.acme.offirent.controller;
 
 import com.acme.offirent.domain.model.District;
+import com.acme.offirent.domain.model.Resource;
 import com.acme.offirent.domain.service.DistrictService;
 import com.acme.offirent.resource.DistrictResource;
+import com.acme.offirent.resource.ResourceResource;
 import com.acme.offirent.resource.SaveDistrictResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -39,17 +42,40 @@ public class DistrictsController {
         return convertToResource(districtService.getDistrictById(districtId));
     }
 
+    @Operation(summary = "Get all districts",description = "Get all districts",tags = {"districts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all districts",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/districts")
+    public Page<DistrictResource> getAllDistricts(Pageable pageable){
 
+        Page<District> resourcePage = districtService.getAllDistricts(pageable);
+        List<DistrictResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }
 
+    @Operation(summary = "Get all districts by Department",description = "Get all districts by given DepartmentId",tags = {"departments"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all districts by given DepartmentId",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/departments/{departmentId}/districts")
+    public Page<DistrictResource> getAllDistrictsByDepartmentId(@PathVariable(name = "departmentId") Long departmentId, Pageable pageable){
 
-    @Operation(summary = "Create District ",description = "Enter a new District at register",tags = {"districts"})
+        Page<District> resourcePage = districtService.getAllDistrictsByDepartmentId(departmentId,pageable);
+        List<DistrictResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }
+
+    @Operation(summary = "Create District ",description = "Enter a new District at register",tags = {"departments"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new Office for given information",content =@Content(mediaType = "application/json") )
     })
-    @PostMapping("/districts")
-    public DistrictResource createDistrict(@Valid @RequestBody SaveDistrictResource resource){
+    @PostMapping("/departments/{departmentId}/districts")
+    public DistrictResource createDistrict(@PathVariable(name = "departmentId") Long departmentId,@Valid @RequestBody SaveDistrictResource resource){
         return convertToResource(
-                districtService.createDistrict(convertToEntity(resource)));
+                districtService.createDistrict(convertToEntity(resource),departmentId));
     }
 
     @Operation(summary = "Delete District",description = "Delete District for given Id at register",tags = {"districts"})

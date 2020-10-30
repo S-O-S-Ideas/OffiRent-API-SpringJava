@@ -10,7 +10,7 @@ import java.util.List;
 public interface OfficeService {
     Page<Office> getAllOffices(Pageable pageable);
     Office getOfficeById  (Long officeId);
-    Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable);
+    //Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable);
     Page<Office> getAllOfficesByPriceLessThanEqual (Float price, Pageable pageable);
     Page<Office> getAllOfficesByAccountId(Long accountId, Pageable pageable);
 

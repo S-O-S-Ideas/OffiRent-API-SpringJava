@@ -41,15 +41,15 @@ public class OfficeServiceImpl implements OfficeService {
                 .orElseThrow( ()->new ResourceNotFoundException("Office","Id",officeId) );
     }
 
-    @Override
-    public Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable) {
-        return districtRepository.findById(districtId).map( district -> {
-            List<Office> offices= district.getOffices();
-            int officesCount = offices.size();
-            return new PageImpl<>(offices, pageable, officesCount);
-
-        }).orElseThrow( ()-> new ResourceNotFoundException("District","Id",districtId) );
-    }
+//    @Override
+//    public Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable) {
+//        return districtRepository.findById(districtId).map( district -> {
+//            List<Office> offices= district.getOffices();
+//            int officesCount = offices.size();
+//            return new PageImpl<>(offices, pageable, officesCount);
+//
+//        }).orElseThrow( ()-> new ResourceNotFoundException("District","Id",districtId) );
+//    }
 
     @Override
     public Page<Office> getAllOfficesByPriceLessThanEqual(Float price, Pageable pageable) {

@@ -95,249 +95,249 @@ public class OfficeServiceImplIntegrationTest {
 
 
 
-    @Test
-    @DisplayName("When GetAllOfficesByDistrictId With Valid DistrictId Then Returns Offices")
-    public void whenGetAllOfficesByDistrictIdWithValidDistrictIdThenReturnsOffices(){
+//    @Test
+//    @DisplayName("When GetAllOfficesByDistrictId With Valid DistrictId Then Returns Offices")
+//    public void whenGetAllOfficesByDistrictIdWithValidDistrictIdThenReturnsOffices(){
+//
+//        //Arrange
+//
+//        Pageable pageable= new Pageable() {
+//            @Override
+//            public int getPageNumber() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public int getPageSize() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public long getOffset() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public Sort getSort() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable next() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable previousOrFirst() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable first() {
+//                return null;
+//            }
+//
+//            @Override
+//            public boolean hasPrevious() {
+//                return false;
+//            }
+//        };
+//        List<Office> officeList = new List<Office>() {
+//            @Override
+//            public int size() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public boolean isEmpty() {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean contains(Object o) {
+//                return false;
+//            }
+//
+//            @Override
+//            public Iterator<Office> iterator() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Object[] toArray() {
+//                return new Object[0];
+//            }
+//
+//            @Override
+//            public <T> T[] toArray(T[] a) {
+//                return null;
+//            }
+//
+//            @Override
+//            public boolean add(Office office) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean remove(Object o) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean containsAll(Collection<?> c) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean addAll(Collection<? extends Office> c) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean addAll(int index, Collection<? extends Office> c) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean removeAll(Collection<?> c) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean retainAll(Collection<?> c) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void clear() {
+//
+//            }
+//
+//            @Override
+//            public Office get(int index) {
+//                return null;
+//            }
+//
+//            @Override
+//            public Office set(int index, Office element) {
+//                return null;
+//            }
+//
+//            @Override
+//            public void add(int index, Office element) {
+//
+//            }
+//
+//            @Override
+//            public Office remove(int index) {
+//                return null;
+//            }
+//
+//            @Override
+//            public int indexOf(Object o) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public int lastIndexOf(Object o) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public ListIterator<Office> listIterator() {
+//                return null;
+//            }
+//
+//            @Override
+//            public ListIterator<Office> listIterator(int index) {
+//                return null;
+//            }
+//
+//            @Override
+//            public List<Office> subList(int fromIndex, int toIndex) {
+//                return null;
+//            }
+//        };
+//        int officeListCount= officeList.size();
+//        Page<Office> officePage = new PageImpl<>( officeList,pageable, officeListCount);
+//
+//        Long id=2L;
+//        District district= new District();
+//        district.setId(id);
+//        district.setOffices(officeList);
+//
+//        when(districtRepository.findById(district.getId()))
+//                .thenReturn(Optional.of(district));
+//
+//        //Act
+//        Page<Office> offices= officeService.getAllOfficesByDistrictId(id, pageable);
+//
+//        //Assert
+//        assertThat(offices).isEqualTo(officePage);
+//    }
 
-        //Arrange
-
-        Pageable pageable= new Pageable() {
-            @Override
-            public int getPageNumber() {
-                return 0;
-            }
-
-            @Override
-            public int getPageSize() {
-                return 0;
-            }
-
-            @Override
-            public long getOffset() {
-                return 0;
-            }
-
-            @Override
-            public Sort getSort() {
-                return null;
-            }
-
-            @Override
-            public Pageable next() {
-                return null;
-            }
-
-            @Override
-            public Pageable previousOrFirst() {
-                return null;
-            }
-
-            @Override
-            public Pageable first() {
-                return null;
-            }
-
-            @Override
-            public boolean hasPrevious() {
-                return false;
-            }
-        };
-        List<Office> officeList = new List<Office>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Office> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Office office) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Office> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Office> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Office get(int index) {
-                return null;
-            }
-
-            @Override
-            public Office set(int index, Office element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Office element) {
-
-            }
-
-            @Override
-            public Office remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Office> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Office> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Office> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-        int officeListCount= officeList.size();
-        Page<Office> officePage = new PageImpl<>( officeList,pageable, officeListCount);
-
-        Long id=2L;
-        District district= new District();
-        district.setId(id);
-        district.setOffices(officeList);
-
-        when(districtRepository.findById(district.getId()))
-                .thenReturn(Optional.of(district));
-
-        //Act
-        Page<Office> offices= officeService.getAllOfficesByDistrictId(id, pageable);
-
-        //Assert
-        assertThat(offices).isEqualTo(officePage);
-    }
-
-    @Test
-    @DisplayName("When GetAllOfficesByDistrictId With Invalid DistrictId Then Returns Resource Resource Not Found Exception")
-    public void whenGetAllOfficesByDistrictIdWithInvalidDistrictIdThenReturnsResourceResourceNotFoundException(){
-
-        //Arrange
-        Long invalidId = 1L;
-        Pageable pageable=new Pageable() {
-            @Override
-            public int getPageNumber() {
-                return 0;
-            }
-
-            @Override
-            public int getPageSize() {
-                return 0;
-            }
-
-            @Override
-            public long getOffset() {
-                return 0;
-            }
-
-            @Override
-            public Sort getSort() {
-                return null;
-            }
-
-            @Override
-            public Pageable next() {
-                return null;
-            }
-
-            @Override
-            public Pageable previousOrFirst() {
-                return null;
-            }
-
-            @Override
-            public Pageable first() {
-                return null;
-            }
-
-            @Override
-            public boolean hasPrevious() {
-                return false;
-            }
-        };
-        String template = "Resource %s not found for %s with value %s";
-        String expectedMessage = String.format(template,"District","Id",invalidId);
-
-        when(districtRepository.findById(invalidId))
-                .thenReturn(Optional.empty());
-
-        //Act
-        Throwable exception= catchThrowable(()->{
-                Page<Office> offices= officeService.getAllOfficesByDistrictId(invalidId, pageable);});
-
-        //Assert
-        assertThat(exception)
-                .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessage(expectedMessage);
-    }
+//    @Test
+//    @DisplayName("When GetAllOfficesByDistrictId With Invalid DistrictId Then Returns Resource Resource Not Found Exception")
+//    public void whenGetAllOfficesByDistrictIdWithInvalidDistrictIdThenReturnsResourceResourceNotFoundException(){
+//
+//        //Arrange
+//        Long invalidId = 1L;
+//        Pageable pageable=new Pageable() {
+//            @Override
+//            public int getPageNumber() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public int getPageSize() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public long getOffset() {
+//                return 0;
+//            }
+//
+//            @Override
+//            public Sort getSort() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable next() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable previousOrFirst() {
+//                return null;
+//            }
+//
+//            @Override
+//            public Pageable first() {
+//                return null;
+//            }
+//
+//            @Override
+//            public boolean hasPrevious() {
+//                return false;
+//            }
+//        };
+//        String template = "Resource %s not found for %s with value %s";
+//        String expectedMessage = String.format(template,"District","Id",invalidId);
+//
+//        when(districtRepository.findById(invalidId))
+//                .thenReturn(Optional.empty());
+//
+//        //Act
+//        Throwable exception= catchThrowable(()->{
+//                Page<Office> offices= officeService.getAllOfficesByDistrictId(invalidId, pageable);});
+//
+//        //Assert
+//        assertThat(exception)
+//                .isInstanceOf(ResourceNotFoundException.class)
+//                .hasMessage(expectedMessage);
+//    }
 
 
 
