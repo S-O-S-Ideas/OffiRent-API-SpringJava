@@ -1,9 +1,12 @@
 package com.acme.offirent.service;
 
+import com.acme.offirent.domain.model.Account;
 import com.acme.offirent.domain.model.Office;
+import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.service.OfficeService;
+import com.acme.offirent.exception.ResourceConditionException;
 import com.acme.offirent.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Autowired
     private DistrictRepository districtRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Override
     public Page<Office> getAllOffices(Pageable pageable) {
         return officeRepository.findAll(pageable);
@@ -37,20 +43,33 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable) {
-        return districtRepository.findById(districtId).map( district -> {
-            List<Office> offices= district.getOffices();
-            int officesCount = offices.size();
-            return new PageImpl<>(offices, pageable, officesCount);
+        return officeRepository.findByDistrictIdOrderByAccount_PremiumDesc(districtId, pageable)
 
-        }).orElseThrow( ()-> new ResourceNotFoundException("District","Id",districtId) );
+                .orElseThrow( ()-> new ResourceNotFoundException("District","Id",districtId) );
     }
 
     @Override
     public Page<Office> getAllOfficesByPriceLessThanEqual(Float price, Pageable pageable) {
-        return officeRepository.findByPriceLessThanEqual(price, pageable)
+        return officeRepository.findByPriceLessThanEqualOrderByAccount_PremiumDesc(price, pageable)
 
                 .orElseThrow( ()->new ResourceNotFoundException("Office","Price",price) );
 
+    }
+
+    @Override
+    public Office activeOffice(Long accountId, Long officeId) {
+
+        if(accountRepository.findById(accountId).isEmpty())
+            throw new ResourceNotFoundException("Account","Id",accountId);
+
+
+        if(!accountRepository.findById(accountId).get().isPremium())
+            throw new ResourceConditionException("Office","status","activated");
+
+        return officeRepository.findById(officeId).map(office -> {
+            office.setStatus(true);
+            return officeRepository.save(office);
+        }).orElseThrow(()-> new ResourceNotFoundException("Office","Id",officeId));
     }
 
     @Override

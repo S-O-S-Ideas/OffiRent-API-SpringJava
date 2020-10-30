@@ -3,6 +3,7 @@ package com.acme.offirent;
 
 import com.acme.offirent.domain.model.District;
 import com.acme.offirent.domain.model.Office;
+import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.service.OfficeService;
@@ -35,7 +36,7 @@ public class OfficeServiceImplIntegrationTest {
     private OfficeRepository officeRepository;
 
     @MockBean
-    private DistrictRepository districtRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     private OfficeService officeService;
@@ -266,8 +267,8 @@ public class OfficeServiceImplIntegrationTest {
         district.setId(id);
         district.setOffices(officeList);
 
-        when(districtRepository.findById(district.getId()))
-                .thenReturn(Optional.of(district));
+        when(officeRepository.findByDistrictIdOrderByAccount_PremiumDesc(district.getId(), pageable))
+                .thenReturn(Optional.of(officePage));
 
         //Act
         Page<Office> offices= officeService.getAllOfficesByDistrictId(id, pageable);
@@ -326,7 +327,7 @@ public class OfficeServiceImplIntegrationTest {
         String template = "Resource %s not found for %s with value %s";
         String expectedMessage = String.format(template,"District","Id",invalidId);
 
-        when(districtRepository.findById(invalidId))
+        when(officeRepository.findByDistrictIdOrderByAccount_PremiumDesc(invalidId, pageable))
                 .thenReturn(Optional.empty());
 
         //Act
@@ -514,7 +515,7 @@ public class OfficeServiceImplIntegrationTest {
         Page<Office> officePage= new PageImpl<>(officeList,pageable,officeListCount);
 
 
-        when(officeRepository.findByPriceLessThanEqual(price, pageable))
+        when(officeRepository.findByPriceLessThanEqualOrderByAccount_PremiumDesc(price, pageable))
                 .thenReturn(Optional.of(officePage));
 
         //Act
@@ -575,7 +576,7 @@ public class OfficeServiceImplIntegrationTest {
             }
         };
 
-        when(officeRepository.findByPriceLessThanEqual(invalidPrice,pageable))
+        when(officeRepository.findByPriceLessThanEqualOrderByAccount_PremiumDesc(invalidPrice,pageable))
                 .thenReturn(Optional.empty());
 
         //Act

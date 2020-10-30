@@ -13,7 +13,7 @@ public interface OfficeService {
     Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable);
     Page<Office> getAllOfficesByPriceLessThanEqual (Float price, Pageable pageable);
 
-
+    Office activeOffice(Long accountId, Long officeId);
     Office createOffice(Office office);
     Office updateOffice(Long officeId,Office officeRequest);
     ResponseEntity<?> deleteOffice(Long officeId);
