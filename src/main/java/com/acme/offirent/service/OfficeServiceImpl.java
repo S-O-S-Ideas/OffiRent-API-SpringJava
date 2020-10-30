@@ -72,10 +72,7 @@ public class OfficeServiceImpl implements OfficeService {
         int Quantity = officeRepository.findByAccountId(accountId).size();
         if (Quantity <=15 || account.isPremium()) {
             office.setAccount(account);
-            if ( office.getPrice()> 0 || office.getDistrict() !=null )
-                return officeRepository.save(office);
-            else
-                throw new LockedActionException("Office must have price and District in order to create it");
+            return officeRepository.save(office);
         }
         else
             throw new LockedActionException("Cant create an Office due to user is not premium and cant have more than 15 offices");

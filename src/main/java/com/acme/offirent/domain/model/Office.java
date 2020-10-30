@@ -45,7 +45,7 @@ public class Office {
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="district_id")
+    @JoinColumn(name="district_id", nullable = false)
     @JsonIgnore
     private District district;
 
