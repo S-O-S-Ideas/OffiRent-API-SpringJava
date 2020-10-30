@@ -23,9 +23,9 @@ public class District {
     private List<Office> offices;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="departament_id", nullable = false)
+    @JoinColumn(name="department_id", nullable = false)
     @JsonIgnore
-    private Departament departament;
+    private Department department;
 
     public Long getId() {
         return id;
@@ -54,12 +54,12 @@ public class District {
         return this;
     }
 
-    public Departament getDepartament() {
-        return departament;
+    public Department getDepartament() {
+        return department;
     }
 
-    public District setDepartament(Departament departament) {
-        this.departament = departament;
+    public District setDepartament(Department departament) {
+        this.department = departament;
         return this;
     }
 }

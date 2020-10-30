@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class DepartamentDistrictsController {
+public class DepartmentDistrictsController {
 
     @Autowired
     private DistrictService districtService;
@@ -32,19 +32,19 @@ public class DepartamentDistrictsController {
     private ModelMapper mapper;
 
 
-    @Operation(summary = "Get Districts by Departament", description = "Get Districts for given Departament's", tags = {"departaments"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Districts within the Departament with entered id",content =@Content(mediaType = "application/json") )
-    })
-    @GetMapping("/departaments/{id}/districts")
-    public Page<DistrictResource> getAllDistrictByDepartamentId(@PathVariable(name = "id") Long departamentId, Pageable pageable){
-        List<DistrictResource> districts=districtService.getAllDistrictByDepartamentId(departamentId, pageable)
-                .getContent().stream().map(this::convertToResource)
-                .collect(Collectors.toList());
-
-        int districtsCount= districts.size();
-        return new PageImpl<>(districts,pageable,districtsCount);
-    }
+//    @Operation(summary = "Get Districts by Departament", description = "Get Districts for given Departament's", tags = {"departaments"})
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Districts within the Departament with entered id",content =@Content(mediaType = "application/json") )
+//    })
+//    @GetMapping("/departaments/{id}/districts")
+//    public Page<DistrictResource> getAllDistrictByDepartamentId(@PathVariable(name = "id") Long departamentId, Pageable pageable){
+//        List<DistrictResource> districts=districtService.getAllDistrictByDepartamentId(departamentId, pageable)
+//                .getContent().stream().map(this::convertToResource)
+//                .collect(Collectors.toList());
+//
+//        int districtsCount= districts.size();
+//        return new PageImpl<>(districts,pageable,districtsCount);
+//    }
 
     private District convertToEntity(SaveDistrictResource resource){return  mapper.map(resource, District.class);}
 
