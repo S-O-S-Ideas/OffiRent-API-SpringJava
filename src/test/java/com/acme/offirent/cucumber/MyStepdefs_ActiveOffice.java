@@ -40,8 +40,13 @@ public class MyStepdefs_ActiveOffice {
         }
     }
 
-    @Given("Offi-provider has premium {Long}")
-    public void offiProviderHasPremium(Account account) {
+    Account account;
+    Office office;
+    Long officeId = 1L;
+    Long accountId = 2L;
+
+    @Given("Offi-provider has premium Account")
+    public void offiProviderHasPremium() {
         account.setPremium(true);
         assertThat(account.isPremium()).isTrue();
     }
@@ -59,14 +64,14 @@ public class MyStepdefs_ActiveOffice {
     }
 
     @Then("the system change the office status to {boolean}")
-    public void theSystemChangeTheOfficeStatusTo(boolean arg0) {
+    public void theSystemChangeTheOfficeStatusTo() {
     }
 
-    @Given("Offi-provider has not premium {Account}")
-    public void offiProviderHasNotPremium(Account arg0) {
+    @Given("Offi-provider has not premium Account")
+    public void offiProviderHasNotPremium() {
     }
 
-    @Then("the system show the message {string}")
-    public void theSystemShowTheMessage(String arg0) {
+    @Then("the system show the message Resource Office can not be changed with status with value activated")
+    public void theSystemShowTheMessage() {
     }
 }

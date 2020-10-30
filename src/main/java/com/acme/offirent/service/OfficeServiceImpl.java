@@ -24,9 +24,6 @@ public class OfficeServiceImpl implements OfficeService {
     private OfficeRepository officeRepository;
 
     @Autowired
-    private DistrictRepository districtRepository;
-
-    @Autowired
     private AccountRepository accountRepository;
 
     @Override
