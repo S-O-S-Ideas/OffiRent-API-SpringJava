@@ -1,5 +1,12 @@
 package com.acme.offirent.resource;
 
+import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class AccountResource {
 
     private Long id;

@@ -1,10 +1,13 @@
 package com.acme.offirent.resource;
 
-import javax.persistence.Lob;
-import javax.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class SaveAccountResource {
 
     @NotNull
@@ -18,7 +21,6 @@ public class SaveAccountResource {
     @NotNull
     private String identification;
 
-    @Lob
     @NotNull
     private Long accType;
 
