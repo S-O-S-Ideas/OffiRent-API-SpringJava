@@ -78,14 +78,23 @@ public class OfficeController {
         return new PageImpl<>(offices,pageable,officesCount);
     }
 
+    @GetMapping("/accounts/{accountId}/offices")
+    public Page<OfficeResource> getAllOfficesByAccountId(@PathVariable(name = "accountId") Long accountId, Pageable pageable){
+        List<OfficeResource> offices = officeService.getAllOfficesByAccountId(accountId,pageable)
+                .getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        int officesCount=offices.size();
+        return new PageImpl<>(offices,pageable,officesCount);
+    }
+
     @Operation(summary = "Create Offices ",description = "Create a new Office",tags = {"offices"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Office for given information",content =@Content(mediaType = "application/json") )
     })
-    @PostMapping("/offices")
-    public OfficeResource createOffice(@Valid @RequestBody SaveOfficeResource resource){
+    @PostMapping("/accounts/{accountId}/offices")
+    public OfficeResource createOffice(@PathVariable(name = "accountId")Long accountId, @Valid @RequestBody SaveOfficeResource resource){
         Office office = convertToEntity(resource);
-        return convertToResource(officeService.createOffice(office));
+        return convertToResource(officeService.createOffice(office,accountId));
     }
 
 

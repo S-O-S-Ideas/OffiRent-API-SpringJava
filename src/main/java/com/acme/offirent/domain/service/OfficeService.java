@@ -12,9 +12,9 @@ public interface OfficeService {
     Office getOfficeById  (Long officeId);
     Page<Office> getAllOfficesByDistrictId(Long districtId, Pageable pageable);
     Page<Office> getAllOfficesByPriceLessThanEqual (Float price, Pageable pageable);
+    Page<Office> getAllOfficesByAccountId(Long accountId, Pageable pageable);
 
-
-    Office createOffice(Office office);
+    Office createOffice(Office office, Long accountId);
     Office updateOffice(Long officeId,Office officeRequest);
     ResponseEntity<?> deleteOffice(Long officeId);
 

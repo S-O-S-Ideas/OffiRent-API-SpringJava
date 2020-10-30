@@ -1,9 +1,12 @@
 package com.acme.offirent.service;
 
+import com.acme.offirent.domain.model.Account;
 import com.acme.offirent.domain.model.Office;
+import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.service.OfficeService;
+import com.acme.offirent.exception.LockedActionException;
 import com.acme.offirent.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Autowired
     private DistrictRepository districtRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     public Page<Office> getAllOffices(Pageable pageable) {
@@ -48,14 +54,31 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public Page<Office> getAllOfficesByPriceLessThanEqual(Float price, Pageable pageable) {
         return officeRepository.findByPriceLessThanEqual(price, pageable)
-
                 .orElseThrow( ()->new ResourceNotFoundException("Office","Price",price) );
 
     }
 
     @Override
-    public Office createOffice(Office office) {
-        return officeRepository.save(office);
+    public Page<Office> getAllOfficesByAccountId(Long accountId, Pageable pageable){
+        if(!accountRepository.existsById(accountId))
+            throw new ResourceNotFoundException("Account","Id",accountId);
+        return  officeRepository.findAllByAccountId(accountId,pageable);
+    }
+
+    @Override
+    public Office createOffice(Office office, Long accountId){
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow( ()->new ResourceNotFoundException("Account","Id",accountId) );
+        int Quantity = officeRepository.findByAccountId(accountId).size();
+        if (Quantity <=15 || account.isPremium()) {
+            office.setAccount(account);
+            if ( office.getPrice()> 0 || office.getDistrict() !=null )
+                return officeRepository.save(office);
+            else
+                throw new LockedActionException("Office must have price and District in order to create it");
+        }
+        else
+            throw new LockedActionException("Cant create an Office due to user is not premium and cant have more than 15 offices");
     }
 
     @Override

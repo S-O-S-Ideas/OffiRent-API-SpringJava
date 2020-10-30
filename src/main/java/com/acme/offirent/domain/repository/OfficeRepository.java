@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface OfficeRepository extends JpaRepository<Office, Long> {
        Page<Office> findByDistrictId (Long districtId, Pageable pageable);   //al final no se llega a utilizar
        Optional<Page<Office>> findByPriceLessThanEqual (Float price, Pageable pageable);
-
+       List<Office> findByAccountId(Long accountId);
+       Page<Office> findAllByAccountId(Long accountId,Pageable pageable);
 }
