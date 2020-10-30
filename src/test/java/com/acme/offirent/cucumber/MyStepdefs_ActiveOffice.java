@@ -53,8 +53,9 @@ public class MyStepdefs_ActiveOffice {
 
     @And("Offi-provider is in the Deactivated Office window")
     public void offiProviderIsInTheDeactivatedOfficeWindow() {
-        Office office;
-        Account account;
+        office.setStatus(false);
+
+
     }
 
     @When("Offi-provider clicks in Activate Product")
@@ -69,6 +70,8 @@ public class MyStepdefs_ActiveOffice {
 
     @Given("Offi-provider has not premium Account")
     public void offiProviderHasNotPremium() {
+        account.setPremium(false);
+        assertThat(account.isPremium()).isFalse();
     }
 
     @Then("the system show the message Resource Office can not be changed with status with value activated")
