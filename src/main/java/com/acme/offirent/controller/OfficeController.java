@@ -78,6 +78,7 @@ public class OfficeController {
         return new PageImpl<>(offices,pageable,officesCount);
     }
 
+    @Operation(summary = "Get offices by Account",description = "Get offices by a given Account Id",tags = {"accounts"})
     @GetMapping("/accounts/{accountId}/offices")
     public Page<OfficeResource> getAllOfficesByAccountId(@PathVariable(name = "accountId") Long accountId, Pageable pageable){
         List<OfficeResource> offices = officeService.getAllOfficesByAccountId(accountId,pageable)
