@@ -12,6 +12,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
-    //Optional<Discount> findByAccountIdAndDiscountId(Long accountId, Long discountId);
-    //TODO
+
 }
