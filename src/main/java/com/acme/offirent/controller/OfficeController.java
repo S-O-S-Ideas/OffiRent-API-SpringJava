@@ -88,7 +88,7 @@ public class OfficeController {
         return new PageImpl<>(offices,pageable,officesCount);
     }
 
-    @Operation(summary = "Create Offices ",description = "Create a new Office",tags = {"offices"})
+    @Operation(summary = "Create Offices ",description = "Create a new Office",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Office for given information",content =@Content(mediaType = "application/json") )
     })
