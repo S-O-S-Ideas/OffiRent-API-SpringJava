@@ -47,9 +47,11 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource createResource(Long officeId,Resource resource){
-        resource.setOffice(officeRepository.findById(officeId)
-        .orElseThrow(()-> new ResourceNotFoundException("Office","Id","officeId")));
-        return resourceRepository.save(resource);
+        return  officeRepository.findById(officeId).map(office -> {
+            resource.setOffice(office);
+            return resourceRepository.save(resource);
+        }).orElseThrow(()-> new ResourceNotFoundException("Office","Id",officeId));
+
     }
 
     @Override

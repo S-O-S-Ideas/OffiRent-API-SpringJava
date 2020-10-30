@@ -10,7 +10,7 @@ import java.util.List;
 public interface DistrictService {
     District getDistrictById(Long districtId);
     Page<District> getAllDistricts(Pageable pageable);
-    Page<District> getAllDistrictsByDepartmentId(Long departamentId, Pageable pageable);
+    Page<District> getAllDistrictsByDepartmentId(Long departmentId, Pageable pageable);
     District createDistrict(District district, Long departmentId);
     ResponseEntity<?> deleteDistrict(Long districtId);
 }
