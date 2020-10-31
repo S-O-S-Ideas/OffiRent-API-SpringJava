@@ -77,6 +77,27 @@ public class OfficesController {
                 officeService.createOffice(convertToEntity(resource),accountId));
     }
 
+    @Operation(summary = "Get all the offices that have the same price",description = "Get all Offices by given price",tags = {"DistrictOffices"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all Offices by given price",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/offices/<={price}")
+    public Page<OfficeResource> getAllOfficesByPriceLessThanEqual(@PathVariable(name = "price") Float price, Pageable pageable){
+        Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqual(price, pageable);
+        List<OfficeResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable, resources.size());
+    }
+
+    @GetMapping("/offices/=>{price1}/<={price2}")
+    public Page<OfficeResource> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(@PathVariable(name = "price1") Float price1,@PathVariable(name = "price2") Float price2,  Pageable pageable){
+        Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(price2, price1, pageable);
+        List<OfficeResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable, resources.size());
+    }
+
+
     private Office convertToEntity(SaveOfficeResource resource){return  mapper.map(resource, Office.class);}
 
     private OfficeResource convertToResource(Office entity){return  mapper.map(entity,OfficeResource.class);}

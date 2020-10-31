@@ -43,10 +43,15 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public Page<Office> getAllOfficesByPriceLessThanEqual(Float price, Pageable pageable) {
+    public Page<Office> getAllOfficesByPriceLessThanEqual(float price, Pageable pageable) {
         return officeRepository.findByPriceLessThanEqual(price, pageable)
                 .orElseThrow( ()->new ResourceNotFoundException("Office","Price",price) );
+    }
 
+    @Override
+    public Page<Office> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(float price1, float price2, Pageable pageable) {
+        return officeRepository.findAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(price1, price2, pageable)
+                .orElseThrow( ()->new ResourceNotFoundException("Resources offices not found between" + price1 +"and" + price2 + "prices") );
     }
 
     @Override
