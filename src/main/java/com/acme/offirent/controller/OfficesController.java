@@ -77,7 +77,7 @@ public class OfficesController {
                 officeService.createOffice(convertToEntity(resource),accountId));
     }
 
-    @Operation(summary = "Get all the offices that have the same price",description = "Get all Offices by given price",tags = {"DistrictOffices"})
+    @Operation(summary = "Get all the offices that have less or the same price",description = "Get all offices by given price",tags = {"offices"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given price",content =@Content(mediaType = "application/json") )
     })
@@ -89,6 +89,10 @@ public class OfficesController {
         return new PageImpl<>(resources,pageable, resources.size());
     }
 
+    @Operation(summary = "Get all the offices that have price between two given prices",description = "Get all offices by given two prices",tags = {"offices"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all offices by given two prices",content =@Content(mediaType = "application/json") )
+    })
     @GetMapping("/offices/=>{price1}/<={price2}")
     public Page<OfficeResource> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(@PathVariable(name = "price1") Float price1,@PathVariable(name = "price2") Float price2,  Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(price2, price1, pageable);
