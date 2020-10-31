@@ -1,6 +1,7 @@
 package com.acme.offirent;
 
 
+import com.acme.offirent.domain.model.Account;
 import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,8 +80,8 @@ public class OfficeServiceTest {
 
         //Arrange
         Long invalidId = 1L;
-        String template = "Resource %s not found for %s with value %s"; //metodo comun
-        String expectedMessage = String.format(template, "Office", "Id", invalidId);   //metodo comun
+        String template = "Resource %s not found for %s with value %s";
+        String expectedMessage = String.format(template, "Office", "Id", invalidId);
 
         when(officeRepository.findById(invalidId))
                 .thenReturn(Optional.empty());
@@ -159,22 +161,149 @@ public class OfficeServiceTest {
                 .hasMessage(expectedMessage);
     }
 
-//    @Test
-//    @DisplayName("When CreateOffice with Not Premium Account having more than 15 Offices returns LockedActionException")
-//    public void whenCreateOfficeWithNotPremiumAccountHavingMoreThan15OfficesReturnsLockedActionException() {
-//        //Arrange
-//        Long id = 1L;
-//        Office office = new Office();
-//        office.setId(id);
-//
-//        String expectedMessage  = "Cant create an Office due to user is not premium and cant have more than 15 offices"; //metodo comun
-//        //Act
-//        Throwable exception = catchThrowable(() -> {
-//            Office office = officeService.createOffice();
-//        });
-//        //Assert
-//        assertThat(exception)
-//                .isInstanceOf(LockedActionException.class)
-//                .hasMessage(expectedMessage);
-//    }
+    @Test
+    @DisplayName("When CreateOffice with Not Premium Account having more than 15 Offices returns LockedActionException")
+    public void whenCreateOfficeWithNotPremiumAccountHavingMoreThan15OfficesReturnsLockedActionException() {
+        //Arrange
+        Long id = 1L;
+        Account account = new Account();
+        account.setPremium(false);
+        account.setId(id);
+        Office office = new Office();
+        office.setId(id);
+        office.setAccount(account);
+
+
+        List<Office>offices = new List<Office>() {
+            @Override
+            public int size() {
+                return 18;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @Override
+            public Iterator<Office> iterator() {
+                return null;
+            }
+
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @Override
+            public <T> T[] toArray(T[] a) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Office office) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Office> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(int index, Collection<? extends Office> c) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+
+            @Override
+            public Office get(int index) {
+                return null;
+            }
+
+            @Override
+            public Office set(int index, Office element) {
+                return null;
+            }
+
+            @Override
+            public void add(int index, Office element) {
+
+            }
+
+            @Override
+            public Office remove(int index) {
+                return null;
+            }
+
+            @Override
+            public int indexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public int lastIndexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public ListIterator<Office> listIterator() {
+                return null;
+            }
+
+            @Override
+            public ListIterator<Office> listIterator(int index) {
+                return null;
+            }
+
+            @Override
+            public List<Office> subList(int fromIndex, int toIndex) {
+                return null;
+            }
+        };
+
+        when(accountRepository.findById(id))
+                .thenReturn(Optional.of(account));
+        when(officeRepository.findAllByAccountId(id))
+                .thenReturn(offices);
+
+        String expectedMessage  = "Cant create an Office due to user is not premium and cant have more than 15 offices";
+        //Act
+        Throwable exception = catchThrowable(() -> {
+            Office office1 = officeService.createOffice(office,id);
+        });
+        //Assert
+        assertThat(exception)
+                .isInstanceOf(LockedActionException.class)
+                .hasMessage(expectedMessage);
+    }
 }
