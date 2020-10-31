@@ -1,9 +1,7 @@
 package com.acme.offirent.cucumber;
 
-import com.acme.offirent.domain.model.Account;
-import com.acme.offirent.domain.model.Office;
-import com.acme.offirent.domain.repository.AccountRepository;
-import com.acme.offirent.domain.repository.OfficeRepository;
+import com.acme.offirent.domain.model.*;
+import com.acme.offirent.domain.repository.*;
 import com.acme.offirent.domain.service.OfficeService;
 import com.acme.offirent.exception.ResourceConditionException;
 import com.acme.offirent.service.OfficeServiceImpl;
@@ -11,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.hu.De;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -29,14 +28,24 @@ public class ActiveOfficeStepDefs {
     @MockBean
     private AccountRepository accountRepository;
 
+    @MockBean
+    private DiscountRepository discountRepository;
+
+    @MockBean
+    private DistrictRepository districtRepository;
+    @MockBean
+    private DepartmentRepository departmentRepository;
+
     @Autowired
     private OfficeService officeService;
 
-
-    Account account= new Account();
-    Office office= new Office();
-    Long officeId = 1L;
-    Long accountId = 2L;
+    public Department department = new Department(1L,"asas");
+    public District district = new District(1L,"sdsd",department);
+    public Discount discount = new Discount(1L,30.3F,"sdsd");
+    public Account account= new Account(2L,"hola","assa","dni",1L,"sdsd","asa",121313L,true,discount);
+    public Office office= new Office(1L,"dsd",1L,12L,true,5.0F,"sdsd",30.3F,true,"sds",district,account);
+    public Long officeId = 1L;
+    public Long accountId = 2L;
 
 
     @TestConfiguration
@@ -56,18 +65,23 @@ public class ActiveOfficeStepDefs {
 
     @And("Offi-provider is in the Deactivated Office window")
     public void offiProviderIsInTheDeactivatedOfficeWindow() {
+        departmentRepository.save(department);
+        districtRepository.save(district);
+        discountRepository.save(discount);
+        accountRepository.save(account);
+        officeRepository.save(office);
         office.setStatus(false);
-        //when(officeRepository.findById(officeId)).thenReturn(Optional.of(office));
+        when(officeRepository.findById(officeId)).thenReturn(Optional.of(office));
 
-        //assertThat(officeService.getOfficeById(officeId).getStatus()).isEqualTo(false);
+        assertThat(officeService.getOfficeById(officeId).isStatus()).isEqualTo(false);
 
     }
 
     @When("Offi-provider clicks in Activate Product")
     public void offiProviderClicksInActivateProduct() {
-        //when(officeRepository.findById(officeId)).thenReturn(Optional.of(office));
-        //when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
-        //officeService.activeOffice(accountId,officeId);
+        when(officeRepository.findById(officeId)).thenReturn(Optional.of(office));
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        officeService.activeOffice(accountId,officeId);
     }
 
     @Then("the system change the office status to activated")
