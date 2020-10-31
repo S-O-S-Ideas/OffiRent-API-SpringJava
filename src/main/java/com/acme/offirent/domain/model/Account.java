@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -48,6 +50,7 @@ public class Account{
 
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name = "discount_id",nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Discount discount;
 }
