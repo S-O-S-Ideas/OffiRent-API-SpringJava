@@ -6,6 +6,7 @@ import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.service.OfficeService;
+import com.acme.offirent.exception.LockedActionException;
 import com.acme.offirent.exception.ResourceNotFoundException;
 import com.acme.offirent.service.OfficeServiceImpl;
 import org.junit.jupiter.api.DisplayName;
@@ -42,21 +43,21 @@ public class OfficeServiceTest {
 
 
     @TestConfiguration
-    static class OfficeServiceTestConfiguration{
+    static class OfficeServiceTestConfiguration {
 
         @Bean
-        public OfficeService officeService(){
+        public OfficeService officeService() {
             return new OfficeServiceImpl();
         }
     }
 
     @Test
     @DisplayName("When GetOfficeById With Valid Id Then Returns Office")
-    public void whenGetOfficeByIdWithValidIdThenReturnsOffice(){
+    public void whenGetOfficeByIdWithValidIdThenReturnsOffice() {
 
         //Arrange
         Long id = 1L;
-        Office office= new Office();
+        Office office = new Office();
         office.setId(id);
 
         when(officeRepository.findById(office.getId()))
@@ -73,18 +74,18 @@ public class OfficeServiceTest {
 
     @Test
     @DisplayName("When GetOfficeById With Invalid Id Then Returns Resource Not Found Exception")
-    public void whenGetOfficeByIdWithInvalidIdThenReturnsResourceNotFoundException(){
+    public void whenGetOfficeByIdWithInvalidIdThenReturnsResourceNotFoundException() {
 
         //Arrange
         Long invalidId = 1L;
-        String template ="Resource %s not found for %s with value %s"; //metodo comun
-        String expectedMessage = String.format(template,"Office","Id",invalidId);   //metodo comun
+        String template = "Resource %s not found for %s with value %s"; //metodo comun
+        String expectedMessage = String.format(template, "Office", "Id", invalidId);   //metodo comun
 
         when(officeRepository.findById(invalidId))
                 .thenReturn(Optional.empty());
 
         //Act
-        Throwable exception= catchThrowable(()->{
+        Throwable exception = catchThrowable(() -> {
             Office searchedOffice = officeService.getOfficeById(invalidId);
         });
 
@@ -96,53 +97,61 @@ public class OfficeServiceTest {
 
     @Test
     @DisplayName("When GetAllOfficesByAccountId With Invalid AccountId Then Returns Resource Resource Not Found Exception")
-    public void whenGetAllOfficesByDistrictIdWithInvalidDistrictIdThenReturnsResourceResourceNotFoundException(){
+    public void whenGetAllOfficesByDistrictIdWithInvalidDistrictIdThenReturnsResourceResourceNotFoundException() {
 
         //Arrange
         Long invalidId = 1L;
-        Pageable pageable= new Pageable() {
+        Pageable pageable = new Pageable() {
             @Override
             public int getPageNumber() {
                 return 0;
             }
+
             @Override
             public int getPageSize() {
                 return 0;
             }
+
             @Override
             public long getOffset() {
                 return 0;
             }
+
             @Override
             public Sort getSort() {
                 return null;
             }
+
             @Override
             public Pageable next() {
                 return null;
             }
+
             @Override
             public Pageable previousOrFirst() {
                 return null;
             }
+
             @Override
             public Pageable first() {
                 return null;
             }
+
             @Override
             public boolean hasPrevious() {
                 return false;
             }
         };
         String template = "Resource %s not found for %s with value %s";
-        String expectedMessage = String.format(template,"Account","Id",invalidId);
+        String expectedMessage = String.format(template, "Account", "Id", invalidId);
 
         when(accountRepository.findById(invalidId))
                 .thenReturn(Optional.empty());
 
         //Act
-        Throwable exception= catchThrowable(()->{
-            Page<Office> offices= officeService.getAllOfficesByAccountId(invalidId, pageable);});
+        Throwable exception = catchThrowable(() -> {
+            Page<Office> offices = officeService.getAllOfficesByAccountId(invalidId, pageable);
+        });
 
         //Assert
         assertThat(exception)
@@ -150,4 +159,22 @@ public class OfficeServiceTest {
                 .hasMessage(expectedMessage);
     }
 
+//    @Test
+//    @DisplayName("When CreateOffice with Not Premium Account having more than 15 Offices returns LockedActionException")
+//    public void whenCreateOfficeWithNotPremiumAccountHavingMoreThan15OfficesReturnsLockedActionException() {
+//        //Arrange
+//        Long id = 1L;
+//        Office office = new Office();
+//        office.setId(id);
+//
+//        String expectedMessage  = "Cant create an Office due to user is not premium and cant have more than 15 offices"; //metodo comun
+//        //Act
+//        Throwable exception = catchThrowable(() -> {
+//            Office office = officeService.createOffice();
+//        });
+//        //Assert
+//        assertThat(exception)
+//                .isInstanceOf(LockedActionException.class)
+//                .hasMessage(expectedMessage);
+//    }
 }
