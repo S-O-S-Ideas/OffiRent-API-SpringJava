@@ -81,7 +81,7 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given price",content =@Content(mediaType = "application/json") )
     })
-    @GetMapping("/offices/<={price}")
+    @GetMapping("/offices?price={price}")
     public Page<OfficeResource> getAllOfficesByPriceLessThanEqual(@PathVariable(name = "price") Float price, Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqual(price, pageable);
         List<OfficeResource> resources = resourcePage.getContent()
@@ -93,7 +93,7 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all offices by given two prices",content =@Content(mediaType = "application/json") )
     })
-    @GetMapping("/offices/>={price1}<={price2}")
+    @GetMapping("/offices?maxprice={price1}&minprice={price2}")
     public Page<OfficeResource> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(@PathVariable(name = "price1") Float price1,@PathVariable(name = "price2") Float price2,  Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(price2, price1, pageable);
         List<OfficeResource> resources = resourcePage.getContent()
