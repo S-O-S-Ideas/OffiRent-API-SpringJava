@@ -15,6 +15,7 @@ public interface OfficeService {
     Page<Office> getAllOfficesByAccountId(Long accountId, Pageable pageable);
     Page<Office> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(float price1, float price2, Pageable pageable);
     Office createOffice(Office office, Long accountId);
+    Office rateOffice(Long officeId, Office officeRequest);
     Office updateOffice(Long officeId,Office officeRequest);
     ResponseEntity<?> deleteOffice(Long officeId);
 

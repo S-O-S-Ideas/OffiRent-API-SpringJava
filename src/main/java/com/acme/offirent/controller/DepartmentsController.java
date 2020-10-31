@@ -1,8 +1,12 @@
 package com.acme.offirent.controller;
 
 import com.acme.offirent.domain.model.Department;
+import com.acme.offirent.domain.model.Resource;
 import com.acme.offirent.domain.service.DepartmentService;
-import com.acme.offirent.resource.*;
+import com.acme.offirent.resource.DepartmentResource;
+import com.acme.offirent.resource.ResourceResource;
+import com.acme.offirent.resource.SaveDepartmentResource;
+import com.acme.offirent.resource.SaveResourceResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
