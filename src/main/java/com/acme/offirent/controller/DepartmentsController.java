@@ -1,12 +1,8 @@
 package com.acme.offirent.controller;
 
 import com.acme.offirent.domain.model.Department;
-import com.acme.offirent.domain.model.Resource;
 import com.acme.offirent.domain.service.DepartmentService;
-import com.acme.offirent.resource.DepartmentResource;
-import com.acme.offirent.resource.ResourceResource;
-import com.acme.offirent.resource.SaveDepartamentResource;
-import com.acme.offirent.resource.SaveResourceResource;
+import com.acme.offirent.resource.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -57,7 +53,7 @@ public class DepartmentsController {
         return convertToResource(departmentService.getDepartmentById(departmentId));
     }
 
-    private Department convertToEntity(SaveDepartamentResource resource){return  mapper.map(resource, Department.class);}
+    private Department convertToEntity(SaveDepartmentResource resource){return  mapper.map(resource, Department.class);}
 
     private DepartmentResource convertToResource(Department entity){return  mapper.map(entity,DepartmentResource.class);}
 }
