@@ -7,11 +7,8 @@ import com.acme.offirent.domain.service.ReservationService;
 import com.acme.offirent.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public class ReservationServiceImpl implements ReservationService {
 
@@ -21,42 +18,34 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private AccountRepository accountRepository;
 
-
     @Override
     public Reservation getReservationByIdAndAccountId(Long accountId, Long reservationId) {
-        return reservationRepository.findByIdAndAccountId(reservationId, accountId)
-                .orElseThrow(() -> new ResourceNotFoundException(
+        return reservationRepository.findByIdAndAccountId(reservationId,accountId)
+                .orElseThrow(()->new ResourceNotFoundException(
                         "Reservation not found with Id " + reservationId +
-                                " and AccountId " + accountId));
+                                " and Account Id " + accountId));
     }
 
     @Override
     public Page<Reservation> getAllReservationsByAccountId(Long accountId, Pageable pageable) {
-      return reservationRepository.findByAccountId(accountId,pageable);
+        return reservationRepository.findByAccountId(accountId,pageable);
     }
 
     @Override
-    public Reservation createReservation(Long accountId, Reservation reservation) {
-        return accountRepository.findById(accountId).map(account->{
+    public Reservation createReservation(Reservation reservation, Long accountId) {
+        return accountRepository.findById(accountId).map(account -> {
             reservation.setAccount(account);
             return reservationRepository.save(reservation);
         }).orElseThrow(()->new ResourceNotFoundException("Account","Id",accountId));
     }
 
     @Override
-    public Reservation updateReservation(Long accountId, Long reservationId, Reservation reservationRequest) {
-        if(!accountRepository.existsById(accountId))
-            throw new ResourceNotFoundException("Account","Id", accountId);
-        return reservationRepository.findById(reservationId).map(reservation -> {
-            reservation.setStatus(reservationRequest.getStatus());
-            reservation.setInitialDate(reservationRequest.getInitialDate());
-            reservation.setEndDate(reservationRequest.getEndDate());
-            return reservationRepository.save(reservation);
-        }).orElseThrow(()->new ResourceNotFoundException("Reservation","Id",reservationId));
+    public Reservation updateReservation(Long reservationId, Reservation reservationRequest) {
+        return reservationRepository.save(reservationRequest);
     }
 
     @Override
-    public ResponseEntity<?> deleteReservation(Long accountId, Long reservationId) {
+    public ResponseEntity<?> deleteReservation(Long reservationId, Long accountId) {
         if(!accountRepository.existsById(accountId))
             throw new ResourceNotFoundException("Account","Id", accountId);
 

@@ -7,8 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-
-public interface ReservationRepository extends JpaRepository<Reservation,Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     Optional<Reservation> findByIdAndAccountId(Long id, Long accountId);
     Page<Reservation> findByAccountId(Long accountId, Pageable pageable);
 }

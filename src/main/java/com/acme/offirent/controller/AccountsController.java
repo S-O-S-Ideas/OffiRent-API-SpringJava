@@ -1,9 +1,11 @@
 package com.acme.offirent.controller;
 
 import com.acme.offirent.domain.model.Account;
+import com.acme.offirent.domain.model.District;
+import com.acme.offirent.domain.model.Resource;
 import com.acme.offirent.domain.service.AccountService;
-import com.acme.offirent.resource.AccountResource;
-import com.acme.offirent.resource.SaveAccountResource;
+import com.acme.offirent.domain.service.DiscountService;
+import com.acme.offirent.resource.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,68 +26,45 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class AccountsController {
 
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private ModelMapper mapper;
 
-    @Autowired
-    private AccountService accountService;
-
-    @Operation(summary = "Get Accounts", description = "Get All Accounts", tags = {"accounts"})
-    @ApiResponses(value= {
-            @ApiResponse(responseCode = "200", description = "All Accounts returned",content = @Content(mediaType = "application/json"))
+    @Operation(summary = "Get all accounts",description = "Get all accounts",tags = {"accounts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all accounts",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/accounts")
     public Page<AccountResource> getAllAccounts(Pageable pageable){
-        Page<Account> accountsPage = accountService.getAllAccounts(pageable);
-        List<AccountResource> resources = accountsPage.getContent()
-                .stream()
-                .map(this::convertToResource)
-                .collect(Collectors.toList());
+
+        Page<Account> resourcePage = accountService.getAllAccounts(pageable);
+        List<AccountResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
-    @Operation(summary = "Get Account By Id", description = "Get Account for given Id", tags = {"accounts"})
+    @Operation(summary = "Get Account by Id", description = "Get Account for given Id", tags = {"accounts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Account returned", content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/accounts/{id}")
-    public AccountResource getAccountById(@PathVariable(name="id") Long accountId){
+    public AccountResource getAccountById(@PathVariable(name = "id") Long accountId){
         return convertToResource(accountService.getAccountById(accountId));
     }
 
-
-    @Operation(summary = "Create an Account",description = "Create a new Account", tags = {"accounts"})
+    @Operation(summary = "Create Account ",description = "Enter a new Account at register",tags = {"accounts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Enter a new account for given information",content =@Content(mediaType = "application/json") )
+    })
     @PostMapping("/accounts")
     public AccountResource createAccount(@Valid @RequestBody SaveAccountResource resource){
-        Account account = convertToEntity(resource);
-        return convertToResource(accountService.createAccount(account));
+        return convertToResource(
+                accountService.createAccount(convertToEntity(resource)));
     }
 
-    @Operation(summary = "Update an Account", description = "Update an Account for given Id", tags = {"accounts"})
-    @PutMapping("/accounts/{accountId}")
-    public AccountResource updateAccount(@PathVariable Long accountId,@RequestBody SaveAccountResource resource){
-        Account account = convertToEntity(resource);
-        return convertToResource(accountService.updateAccount(accountId,account));
-    }
+    private Account convertToEntity(SaveAccountResource resource){return  mapper.map(resource, Account.class);}
 
-    @Operation(summary = "Update an Account to Premium Status", description = "Update an Account to Premium Status for given Id",tags = {"accounts"})
-    @PatchMapping("/accounts/{accountId}")
-    public AccountResource updateToPremium(@PathVariable Long accountId, @RequestBody SaveAccountResource resource){
-        Account account = convertToEntity(resource);
-        return convertToResource(accountService.updateAccountStatus(accountId,account));
-    }
-
-    @Operation(summary = "Delete an Account", description = "Delete an Account with given Id",tags = {"accounts"})
-    @DeleteMapping("/accounts/{accountId}")
-    public ResponseEntity<?> deleteAccount(@PathVariable Long accountId){
-        return accountService.deleteAccount(accountId);
-    }
-
-
-    private Account convertToEntity(SaveAccountResource resource){
-        return mapper.map(resource, Account.class);
-    }
-    private AccountResource convertToResource(Account entity){
-        return mapper.map(entity,AccountResource.class);
-    }
-
-
+    private AccountResource convertToResource(Account entity){return  mapper.map(entity,AccountResource.class);}
 }

@@ -9,6 +9,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DistrictRepository extends JpaRepository<District, Long> {
-    Page<District> findByDepartamentId (Long departamentId, Pageable pageable);  //al final no se llega a utilizar
-
+    Page<District> findAllByDepartmentId(Long departmentId, Pageable pageable);
 }

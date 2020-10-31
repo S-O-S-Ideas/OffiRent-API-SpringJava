@@ -5,14 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResourceResource {
-
+public class DepartmentResource {
     private Long id;
-
     private String name;
-
-    private Long quantity;
-
-    private String comment;
-
 }

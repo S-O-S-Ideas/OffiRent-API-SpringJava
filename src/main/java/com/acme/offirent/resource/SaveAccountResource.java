@@ -1,41 +1,40 @@
 package com.acme.offirent.resource;
 
-import javax.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class SaveAccountResource {
 
     @NotNull
-    @NotBlank
-    @Size(max = 50)
+    @Size(max = 30)
     private String email;
 
     @NotNull
-    @NotBlank
-    @Size(max = 50)
+    @Size(max = 30)
     private String password;
 
     @NotNull
-    @NotBlank
-    @Size(max = 100)
     private String identification;
 
     @NotNull
-    private Boolean isPremium;
+    private Long accType;
 
     @NotNull
-    @NotBlank
-    @Size(max = 50)
+    @Size(max = 30)
     private String firstName;
 
     @NotNull
-    @NotBlank
-    @Size(max = 50)
+    @Size(max = 30)
     private String lastName;
 
     @NotNull
-    @NotBlank
-    @Size(max = 50)
-    private String phone;
+    private Long phone;
+
+    @NotNull
+    private boolean premium;
 }

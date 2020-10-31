@@ -1,7 +1,7 @@
 package com.acme.offirent.service;
 
 import com.acme.offirent.domain.model.District;
-import com.acme.offirent.domain.repository.DepartamentRepository;
+import com.acme.offirent.domain.repository.DepartmentRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.service.DistrictService;
 import com.acme.offirent.exception.ResourceNotFoundException;
@@ -22,7 +22,7 @@ public class DistrictServiceImpl implements DistrictService {
     private DistrictRepository districtRepository;
 
     @Autowired
-    private DepartamentRepository departamentRepository;
+    private DepartmentRepository departmentRepository;
 
     @Override
     public District getDistrictById(Long districtId) {
@@ -31,20 +31,25 @@ public class DistrictServiceImpl implements DistrictService {
                 .orElseThrow(()->new ResourceNotFoundException("District","Id",districtId));
     }
 
+    @Override
+    public Page<District> getAllDistricts(Pageable pageable) {
+        return districtRepository.findAll(pageable);
+    }
+
 
     @Override
-    public Page<District> getAllDistrictByDepartamentId(Long departamentId, Pageable pageable) {
-
-        return departamentRepository.findById(departamentId).map( departament -> {
-            List<District> districts= departament.getDistricts();
-            int districtsCounts = districts.size();
-            return new PageImpl<>(districts,pageable,districtsCounts);
-        }).orElseThrow(()->new ResourceNotFoundException("Departament","Id",departamentId));
+    public Page<District> getAllDistrictsByDepartmentId(Long departmentId, Pageable pageable) {
+        if(!departmentRepository.existsById(departmentId))
+            throw  new ResourceNotFoundException("Department","Id",departmentId);
+        return districtRepository.findAllByDepartmentId(departmentId,pageable);
     }
 
     @Override
-    public District createDistrict(District district) {
-        return districtRepository.save(district);
+    public District createDistrict(District district,Long departmentId) {
+        return departmentRepository.findById(departmentId).map(department -> {
+            district.setDepartment(department);
+            return districtRepository.save(district);
+        }).orElseThrow(()->new ResourceNotFoundException("Department","Id",departmentId));
     }
 
     @Override

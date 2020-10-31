@@ -1,22 +1,18 @@
 package com.acme.offirent.resource;
 
-import javax.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Getter
+@Setter
 public class SaveReservationResource {
 
     @NotNull
-    private Boolean status;
-
-    @NotNull
-    @NotBlank
     private Date initialDate;
 
     @NotNull
-    @NotBlank
     private Date endDate;
-
-
-
 }
