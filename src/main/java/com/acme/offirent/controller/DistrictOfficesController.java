@@ -32,7 +32,18 @@ public class DistrictOfficesController {
     @Autowired
     private ModelMapper mapper;
 
-    //TODO
+    @Operation(summary = "Get all offices by discrictId",description = "Get all Offices by given Disctrict Id",tags = {"districts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all Offices by given district Id",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/district/{districtId}/offices")
+    public Page<OfficeResource> getAllOfficesByDistrictId(@PathVariable(name="districtId") Long districtId, Pageable pageable){
+        Page<Office> resourcePage = officeService.getAllOfficesByDistrictId(districtId, pageable);
+        List<OfficeResource> resources = resourcePage.getContent()
+                .stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable, resources.size());
+    }
+
 
     private Office convertToEntity(SaveOfficeResource resource){
         return mapper.map(resource, Office.class);
