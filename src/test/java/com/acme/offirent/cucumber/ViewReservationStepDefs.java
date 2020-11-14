@@ -14,6 +14,8 @@ import com.acme.offirent.service.ReservationServiceImpl;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,11 +24,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 
 import static org.mockito.Mockito.when;
 
+@ExtendWith(SpringExtension.class)
 public class ViewReservationStepDefs {
     @MockBean
     private OfficeRepository officeRepository;
@@ -57,14 +61,16 @@ public class ViewReservationStepDefs {
         }
     }
 
+    @Test
     @Given("Offi-user is within in the Home window")
     public void offiUserIsWithinInTheHomeWindow() {
         Account account = new Account();
         Long accountId = 1L;
 
-        //when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
+        when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
     }
 
+    @Test
     @When("he clicks in the Reservation button")
     public void heClicksInTheReservationButton() {
         Long accountId = 1L;
@@ -228,9 +234,10 @@ public class ViewReservationStepDefs {
         int reservationCount = reservations.size();
         Page<Reservation> reservationPage = new PageImpl<>(reservations,pageable,reservationCount);
 
-        //when(reservationRepository.findByAccountId(accountId,pageable )).thenReturn(reservationPage);
+        when(reservationRepository.findByAccountId(accountId,pageable )).thenReturn(reservationPage);
     }
 
+    @Test
     @Then("the system shows the Reservation window with all the Reservations")
     public void theSystemShowsTheReservationWindowWithAllTheReservations() {
         Long accountId = 1L;
@@ -399,6 +406,7 @@ public class ViewReservationStepDefs {
 
     }
 
+    @Test
     @Given("Offi-user is within in the Reservation window")
     public void offiUserIsWithinInTheReservationWindow() {
         Pageable pageable = new Pageable() {
@@ -560,19 +568,21 @@ public class ViewReservationStepDefs {
         };
         int reservationCount = reservations.size();
         Page<Reservation> reservationPage = new PageImpl<>(reservations,pageable,reservationCount);
-        //when(reservationRepository.findAll(pageable)).thenReturn(reservationPage);
+        when(reservationRepository.findAll(pageable)).thenReturn(reservationPage);
     }
 
+    @Test
     @When("he clicks in a Reservation")
     public void heClicksInAReservation() {
         Long reservationId = 1L;
         Long accountId = 2L;
         Reservation reservation = new Reservation();
 
-       // when(reservationRepository.findByIdAndAccountId(reservationId,accountId)).thenReturn(Optional.of(reservation));
+       when(reservationRepository.findByIdAndAccountId(reservationId,accountId)).thenReturn(Optional.of(reservation));
 
     }
 
+    @Test
     @Then("the system shows details of the selected Reservation")
     public void theSystemShowsDetailsOfTheSelectedReservation() {
         Long reservationId = 1L;

@@ -10,10 +10,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.hu.De;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(SpringExtension.class)
 public class ActiveOfficeStepDefs {
     @MockBean
     private OfficeRepository officeRepository;
@@ -57,12 +61,14 @@ public class ActiveOfficeStepDefs {
         }
     }
 
+    @Test
     @Given("Offi-provider has premium Account")
     public void offiProviderHasPremium() {
         account.setPremium(true);
         assertThat(account.isPremium()).isTrue();
     }
 
+    @Test
     @And("Offi-provider is in the Deactivated Office window")
     public void offiProviderIsInTheDeactivatedOfficeWindow() {
         departmentRepository.save(department);
@@ -77,6 +83,7 @@ public class ActiveOfficeStepDefs {
 
     }
 
+    @Test
     @When("Offi-provider clicks in Activate Product")
     public void offiProviderClicksInActivateProduct() {
         when(officeRepository.findById(officeId)).thenReturn(Optional.of(office));
@@ -84,6 +91,7 @@ public class ActiveOfficeStepDefs {
         officeService.activeOffice(accountId,officeId);
     }
 
+    @Test
     @Then("the system change the office status to activated")
     public void theSystemChangeTheOfficeStatusTo() {
         office.setStatus(false);
@@ -95,12 +103,14 @@ public class ActiveOfficeStepDefs {
 
     }
 
+    @Test
     @Given("Offi-provider has not premium Account")
     public void offiProviderHasNotPremium() {
         account.setPremium(false);
         assertThat(account.isPremium()).isFalse();
     }
 
+    @Test
     @Then("the system show the message Resource Office can not be changed with status with value activated")
     public void theSystemShowTheMessage() {
         Office office1 = new Office();
