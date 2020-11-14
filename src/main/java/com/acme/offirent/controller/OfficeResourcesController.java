@@ -78,6 +78,7 @@ public class OfficeResourcesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update information of resource for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/offices/{officeId}/resources/{resourceId}")
     public ResourceResource updateResource(@PathVariable(name = "officeId") Long officeId,@PathVariable(name = "resourceId") Long resourceId,@Valid @RequestBody SaveResourceResource resource){
         return convertToResource(resourceService.updateResource(officeId,resourceId,convertToEntity(resource)));
@@ -87,6 +88,7 @@ public class OfficeResourcesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete resource for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/offices/{officeId}/resources/{resourceId}")
     public ResponseEntity<?> deleteResource(@PathVariable(name = "officeId") Long officeId, @PathVariable(name = "resourceId") Long resourceId){
         return resourceService.deleteResource(officeId,resourceId);

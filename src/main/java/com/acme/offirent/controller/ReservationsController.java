@@ -77,6 +77,7 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete Reservation for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/accounts/{accountId}/reservations/{reservationId}")
     public ResponseEntity<?> deleteDistrict(
             @PathVariable(name = "accountId") Long accountId,

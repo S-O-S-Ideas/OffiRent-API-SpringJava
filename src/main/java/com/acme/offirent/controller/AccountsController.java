@@ -69,6 +69,16 @@ public class AccountsController {
                 accountService.createAccount(convertToEntity(resource)));
     }
 
+    @Operation(summary = "Update Accounts",description = "Update an Account",tags = {"accounts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Change the account information",content =@Content(mediaType = "application/json") )
+    })
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/accounts/{accountId}")
+    public  AccountResource activeOffice(@PathVariable(name = "accountId")Long accountId,@Valid @RequestBody SaveAccountResource resource){
+        return  convertToResource(accountService.updateAccount(accountId,convertToEntity(resource)));
+    }
+
     private Account convertToEntity(SaveAccountResource resource){return  mapper.map(resource, Account.class);}
 
     private AccountResource convertToResource(Account entity){return  mapper.map(entity,AccountResource.class);}

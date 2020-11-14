@@ -116,6 +116,7 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update information of office for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/offices/{id}")
     public OfficeResource updateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody SaveOfficeResource resource){
         return convertToResource(officeService.updateOffice(officeId,convertToEntity(resource)));
@@ -125,6 +126,7 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Change the office's status to activated",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/offices/{accountId}/{id}")
     public  OfficeResource activeOffice(@PathVariable(name = "accountId")Long accountId,@PathVariable(name = "id") Long officeId){
         return  convertToResource(officeService.activeOffice(accountId,officeId));
@@ -134,6 +136,7 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete office for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/offices/{id}")
     public ResponseEntity<?> deleteOffice(@PathVariable(name="id") Long officeId){
         return officeService.deleteOffice(officeId);

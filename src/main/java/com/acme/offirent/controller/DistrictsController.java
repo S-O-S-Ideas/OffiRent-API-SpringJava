@@ -88,6 +88,7 @@ public class DistrictsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete District for given Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/districts/{id}")
     public ResponseEntity<?> deleteDistrict(@PathVariable(name = "id") Long districtId){
         return districtService.deleteDistrict(districtId);
