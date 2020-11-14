@@ -4,6 +4,7 @@ import com.acme.offirent.domain.model.Account;
 import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.model.Reservation;
 import com.acme.offirent.domain.repository.AccountRepository;
+import com.acme.offirent.domain.repository.DistrictRepository;
 import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.repository.ReservationRepository;
 import com.acme.offirent.domain.service.OfficeService;
@@ -40,6 +41,9 @@ public class ReserveOfficeStepDefs {
 
     @MockBean
     private ReservationRepository reservationRepository;
+
+    @MockBean
+    private DistrictRepository districtRepository;
 
     @MockBean
     private AccountRepository accountRepository;
