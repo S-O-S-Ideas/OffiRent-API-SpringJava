@@ -3,10 +3,7 @@ package com.acme.offirent.controller;
 import com.acme.offirent.domain.model.Department;
 import com.acme.offirent.domain.model.Resource;
 import com.acme.offirent.domain.service.DepartmentService;
-import com.acme.offirent.resource.DepartmentResource;
-import com.acme.offirent.resource.ResourceResource;
-import com.acme.offirent.resource.SaveDepartmentResource;
-import com.acme.offirent.resource.SaveResourceResource;
+import com.acme.offirent.resource.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +50,16 @@ public class DepartmentsController {
     @GetMapping("/departments/{id}")
     public DepartmentResource getDepartmentById(@PathVariable(name = "id") Long departmentId){
         return convertToResource(departmentService.getDepartmentById(departmentId));
+    }
+
+    @Operation(summary = "Create Department ",description = "Enter a new Department at register",tags = {"departments"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Enter a new department for given information",content =@Content(mediaType = "application/json") )
+    })
+    @PostMapping("/departments/")
+    public DepartmentResource createDistrict(@Valid @RequestBody SaveDepartmentResource resource){
+        return convertToResource(
+                departmentService.createDepartment(convertToEntity(resource)));
     }
 
     private Department convertToEntity(SaveDepartmentResource resource){return  mapper.map(resource, Department.class);}

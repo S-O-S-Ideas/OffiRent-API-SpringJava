@@ -46,7 +46,7 @@ public class OfficesController {
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
-    @Operation(summary = "Get all offices by account",description = "Get all Offices by given Account Id",tags = {"offices"})
+    @Operation(summary = "Get all offices by account",description = "Get all Offices by given Account Id",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given Account Id",content =@Content(mediaType = "application/json") )
     })
@@ -68,14 +68,14 @@ public class OfficesController {
         return convertToResource(officeService.getOfficeById(officeId));
     }
 
-    @Operation(summary = "Create Office ",description = "Enter a new Office at register",tags = {"offices"})
+    @Operation(summary = "Create Office ",description = "Enter a new Office at register",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new office for given information",content =@Content(mediaType = "application/json") )
     })
-    @PostMapping("/accounts/{accountId}/offices")
-    public OfficeResource createOffice(@PathVariable(name = "accountId") Long accountId,@Valid @RequestBody SaveOfficeResource resource){
+    @PostMapping("/accounts/{accountId}/District={districtId}/offices")
+    public OfficeResource createOffice(@PathVariable(name = "accountId") Long accountId, @PathVariable(name = "districtId") Long districtId, @Valid @RequestBody SaveOfficeResource resource){
         return convertToResource(
-                officeService.createOffice(convertToEntity(resource),accountId));
+                officeService.createOffice(convertToEntity(resource),accountId,districtId));
     }
 
     @Operation(summary = "Get all the offices that have less or the same price",description = "Get all offices by given price",tags = {"offices"})

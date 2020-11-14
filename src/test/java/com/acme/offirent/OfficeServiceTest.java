@@ -2,6 +2,7 @@ package com.acme.offirent;
 
 
 import com.acme.offirent.domain.model.Account;
+import com.acme.offirent.domain.model.District;
 import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
@@ -169,8 +170,11 @@ public class OfficeServiceTest {
         Account account = new Account();
         account.setPremium(false);
         account.setId(id);
+        District district = new District();
+        district.setId(id);
         Office office = new Office();
         office.setId(id);
+        office.setDistrict(district);
         office.setAccount(account);
 
 
@@ -293,13 +297,15 @@ public class OfficeServiceTest {
 
         when(accountRepository.findById(id))
                 .thenReturn(Optional.of(account));
+        when(districtRepository.findById(id))
+                .thenReturn(Optional.of(district));
         when(officeRepository.findAllByAccountId(id))
                 .thenReturn(offices);
 
         String expectedMessage  = "Cant create an Office due to user is not premium and cant have more than 15 offices";
         //Act
         Throwable exception = catchThrowable(() -> {
-            Office office1 = officeService.createOffice(office,id);
+            Office office1 = officeService.createOffice(office,id,id);
         });
         //Assert
         assertThat(exception)

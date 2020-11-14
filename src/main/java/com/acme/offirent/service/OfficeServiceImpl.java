@@ -1,5 +1,6 @@
 package com.acme.offirent.service;
 
+import com.acme.offirent.domain.model.District;
 import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.repository.DistrictRepository;
@@ -78,10 +79,13 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public Office createOffice(Office office, Long accountId){
+    public Office createOffice(Office office, Long accountId, Long districtId){
         return accountRepository.findById(accountId).map(account -> {
             int Quantity = officeRepository.findAllByAccountId(accountId).size();
             if (Quantity <=15 || account.isPremium()) {
+                District district = districtRepository.findById(districtId)
+                        .orElseThrow( ()->new ResourceNotFoundException("District","Id",districtId) );
+                office.setDistrict(district);
                 office.setAccount(account);
                 return officeRepository.save(office);
             }

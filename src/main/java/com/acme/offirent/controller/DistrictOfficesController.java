@@ -36,7 +36,7 @@ public class DistrictOfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given district Id",content =@Content(mediaType = "application/json") )
     })
-    @GetMapping("/district/{districtId}/offices")
+    @GetMapping("/districts/{districtId}/offices")
     public Page<OfficeResource> getAllOfficesByDistrictId(@PathVariable(name="districtId") Long districtId, Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByDistrictId(districtId, pageable);
         List<OfficeResource> resources = resourcePage.getContent()
