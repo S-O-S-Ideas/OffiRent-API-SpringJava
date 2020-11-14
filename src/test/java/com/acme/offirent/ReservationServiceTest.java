@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class ReservationServiceImplIntegrationTest {
+public class ReservationServiceTest {
 
     @MockBean
     private ReservationRepository reservationRepository;

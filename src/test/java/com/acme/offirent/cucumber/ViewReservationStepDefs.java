@@ -71,8 +71,8 @@ public class ViewReservationStepDefs {
     }
 
     @Test
-    @When("he clicks in the Reservation button")
-    public void heClicksInTheReservationButton() {
+    @When("he clicks in the Reservations button")
+    public void heClicksInTheReservationsButton() {
         Long accountId = 1L;
         Pageable pageable = new Pageable() {
             @Override
@@ -407,8 +407,8 @@ public class ViewReservationStepDefs {
     }
 
     @Test
-    @Given("Offi-user is within in the Reservation window")
-    public void offiUserIsWithinInTheReservationWindow() {
+    @Given("Offi-user is within of the Reservations window")
+    public void offiUserIsWithinOfTheReservationsWindow() {
         Pageable pageable = new Pageable() {
             @Override
             public int getPageNumber() {

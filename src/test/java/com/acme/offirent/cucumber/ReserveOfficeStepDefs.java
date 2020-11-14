@@ -67,8 +67,8 @@ public class ReserveOfficeStepDefs {
 
 
     @Test
-    @Given("Offi-user is within of Office window")
-    public void offiUserIsWithinOfOfficeWindow() {
+    @Given("Offi-user is within of Offices window")
+    public void offiUserIsWithinOfOfficesWindow() {
         Pageable pageable = new Pageable() {
             @Override
             public int getPageNumber() {
@@ -274,7 +274,7 @@ public class ReserveOfficeStepDefs {
     }
 
     @Test
-    @Then("the system will register the reservation")
+    @Then("the system will register the Reservation")
     public void theSystemWillRegisterTheReservation() {
         Long officeId = 1L;
         Long accountId = 2L;
