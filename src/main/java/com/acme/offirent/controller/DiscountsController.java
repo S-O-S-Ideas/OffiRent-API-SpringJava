@@ -35,15 +35,17 @@ public class DiscountsController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Discounts returned", content = @Content(mediaType = "application/json"))
                 })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/discounts")
-    public Page<DiscountResource> getAllDiscounts(Pageable pageable){
+    public List<DiscountResource> getAllDiscounts(Pageable pageable){
 
        List<DiscountResource> discounts= discountService.getAllDiscounts(pageable)
                .getContent().stream().map(this::convertToResource)
                .collect(Collectors.toList());
 
        int discountsCount= discounts.size();
-       return new PageImpl<>(discounts,pageable,discountsCount);
+       //return new PageImpl<>(discounts,pageable,discountsCount);
+        return discounts;
     }
 
     @Operation(summary = "Get discount by discountId",description = "Get discounts by a given discountId",tags = {"discounts"})

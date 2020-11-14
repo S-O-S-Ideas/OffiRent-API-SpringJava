@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,12 +33,14 @@ public class DistrictOfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given district Id",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/districts/{districtId}/offices")
-    public Page<OfficeResource> getAllOfficesByDistrictId(@PathVariable(name="districtId") Long districtId, Pageable pageable){
+    public List<OfficeResource> getAllOfficesByDistrictId(@PathVariable(name="districtId") Long districtId, Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByDistrictId(districtId, pageable);
         List<OfficeResource> resources = resourcePage.getContent()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable, resources.size());
+        //return new PageImpl<>(resources,pageable, resources.size());
+        return resources;
     }
 
 

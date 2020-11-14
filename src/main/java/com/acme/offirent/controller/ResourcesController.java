@@ -33,20 +33,23 @@ public class ResourcesController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all resources",content =@Content(mediaType = "application/json") )
                 })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/resources")
-    public Page<ResourceResource> getAllResource(Pageable pageable){
+    public List<ResourceResource> getAllResource(Pageable pageable){
 
         Page<Resource> resourcePage = resourceService.getAllResources(pageable);
         List<ResourceResource> resources = resourcePage.getContent()
         .stream().map(this::convertToResource).collect(Collectors.toList());
 
-        return new PageImpl<>(resources,pageable,resources.size());
+       // return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
     @Operation(summary = "Get resource by resourceId",description = "Get resources by a given resourceId",tags = {"resources"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get resources with by a given resourceId",content =@Content(mediaType = "application/json") )
                 })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/resources/{id}")
     public ResourceResource getResourceById(@PathVariable(name = "id") Long resourceId){
         return convertToResource(resourceService.getResourceById(resourceId)); 

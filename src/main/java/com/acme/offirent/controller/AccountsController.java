@@ -36,19 +36,23 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all accounts",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts")
-    public Page<AccountResource> getAllAccounts(Pageable pageable){
+    public List<AccountResource> getAllAccounts(Pageable pageable){
 
         Page<Account> resourcePage = accountService.getAllAccounts(pageable);
         List<AccountResource> resources = resourcePage.getContent()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable,resources.size());
+        //return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
+
     }
 
     @Operation(summary = "Get Account by Id", description = "Get Account for given Id", tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Account returned", content = @Content(mediaType = "application/json"))
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{id}")
     public AccountResource getAccountById(@PathVariable(name = "id") Long accountId){
         return convertToResource(accountService.getAccountById(accountId));
@@ -58,6 +62,7 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new account for given information",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts")
     public AccountResource createAccount(@Valid @RequestBody SaveAccountResource resource){
         return convertToResource(

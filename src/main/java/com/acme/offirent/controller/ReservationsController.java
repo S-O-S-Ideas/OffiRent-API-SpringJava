@@ -34,34 +34,39 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{accountId}/reservations")
-    public Page<ReservationResource> getAllReservationsByAccountId(
+    public List<ReservationResource> getAllReservationsByAccountId(
             @PathVariable(name = "accountId") Long accountId, Pageable pageable){
 
         Page<Reservation> reservationPage = reservationService.getAllReservationsByAccountId(accountId,pageable);
         List<ReservationResource> resources = reservationPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable,resources.size());
+        //return new PageImpl<>(resources,pageable,resources.size());'
+        return resources;
     }
 
     @Operation(summary = "Get all reservations by Account",description = "Get all reservations by given AccountId",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices/{officeId}/reservations")
-    public Page<ReservationResource> getAllReservationsByOfficeId(
+    public List<ReservationResource> getAllReservationsByOfficeId(
             @PathVariable(name = "officeId") Long officeId, Pageable pageable){
 
         Page<Reservation> reservationPage = reservationService.getAllReservationsByOfficeId(officeId,pageable);
         List<ReservationResource> resources = reservationPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable,resources.size());
+       // return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
     @Operation(summary = "Create Reservation ",description = "Create a new Reservation",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Reservation for given information",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts/{accountId}/Office={officeId}/reservations")
     public ReservationResource createReservation(@PathVariable(name = "accountId") Long accountId,@PathVariable(name = "officeId") Long officeId, @Valid @RequestBody SaveReservationResource resource){
         return convertToResource(

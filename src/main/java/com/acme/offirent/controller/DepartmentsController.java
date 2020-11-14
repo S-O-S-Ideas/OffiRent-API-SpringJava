@@ -33,20 +33,23 @@ public class DepartmentsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Departments",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/departments")
-    public Page<DepartmentResource> getAllDepartments(Pageable pageable){
+    public List<DepartmentResource> getAllDepartments(Pageable pageable){
 
         Page<Department> departmentPage = departmentService.getAllDepartments(pageable);
         List<DepartmentResource> resources = departmentPage.getContent()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
 
-        return new PageImpl<>(resources,pageable,resources.size());
+        //return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
     @Operation(summary = "Get department by departmentId",description = "Get department by a given departmentId",tags = {"departments"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get department by a given departmentId",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/departments/{id}")
     public DepartmentResource getDepartmentById(@PathVariable(name = "id") Long departmentId){
         return convertToResource(departmentService.getDepartmentById(departmentId));
@@ -56,6 +59,7 @@ public class DepartmentsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new department for given information",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/departments/")
     public DepartmentResource createDistrict(@Valid @RequestBody SaveDepartmentResource resource){
         return convertToResource(

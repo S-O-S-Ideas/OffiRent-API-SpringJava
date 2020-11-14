@@ -37,6 +37,7 @@ public class DistrictsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "District returned", content = @Content(mediaType = "application/json"))
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/districts/{id}")
     public DistrictResource getDistrictById(@PathVariable(name = "id") Long districtId){
         return convertToResource(districtService.getDistrictById(districtId));
@@ -46,32 +47,37 @@ public class DistrictsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all districts",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/districts")
-    public Page<DistrictResource> getAllDistricts(Pageable pageable){
+    public List<DistrictResource> getAllDistricts(Pageable pageable){
 
         Page<District> resourcePage = districtService.getAllDistricts(pageable);
         List<DistrictResource> resources = resourcePage.getContent()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable,resources.size());
+        //return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
     @Operation(summary = "Get all districts by Department",description = "Get all districts by given DepartmentId",tags = {"departments"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all districts by given DepartmentId",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/departments/{departmentId}/districts")
-    public Page<DistrictResource> getAllDistrictsByDepartmentId(@PathVariable(name = "departmentId") Long departmentId, Pageable pageable){
+    public List<DistrictResource> getAllDistrictsByDepartmentId(@PathVariable(name = "departmentId") Long departmentId, Pageable pageable){
 
         Page<District> resourcePage = districtService.getAllDistrictsByDepartmentId(departmentId,pageable);
         List<DistrictResource> resources = resourcePage.getContent()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources,pageable,resources.size());
+        //return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
     @Operation(summary = "Create District ",description = "Enter a new District at register",tags = {"departments"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new Office for given information",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/departments/{departmentId}/districts")
     public DistrictResource createDistrict(@PathVariable(name = "departmentId") Long departmentId,@Valid @RequestBody SaveDistrictResource resource){
         return convertToResource(

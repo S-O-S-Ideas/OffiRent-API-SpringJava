@@ -39,14 +39,15 @@ public class OfficeResourcesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get resources by a given office",content =@Content(mediaType = "application/json") )
                 })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices/{id}/resources")
-    public Page<ResourceResource> getResourcesByOfficeId(@PathVariable(name = "id") Long officeId, Pageable pageable){
+    public List<ResourceResource> getResourcesByOfficeId(@PathVariable(name = "id") Long officeId, Pageable pageable){
         Page<Resource> resourcePage = resourceService.findByOfficeId(officeId, pageable);
         List<ResourceResource> resources = resourcePage.getContent()
         .stream().map(this::convertToResource).collect(Collectors.toList());
 
-        return new PageImpl<>(resources,pageable,resources.size());
-        
+        //return new PageImpl<>(resources,pageable,resources.size());
+        return resources;
     }
 
 
@@ -54,6 +55,7 @@ public class OfficeResourcesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get resource by a given name and office",content =@Content(mediaType = "application/json") )
                 })
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices/{id}/resources/{name}")
     public ResourceResource getResourceByNameAndOfficeId(@PathVariable(name = "id") Long officeId,@PathVariable(name = "name") String resourceName){
         return convertToResource(resourceService.findByNameAndOfficeId(resourceName, officeId)); 
@@ -65,6 +67,7 @@ public class OfficeResourcesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Resource for given information",content =@Content(mediaType = "application/json") )
     })
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/offices/{officeId}/resources")
     public ResourceResource createResource(@PathVariable(name = "officeId") Long officeId,@Valid @RequestBody SaveResourceResource resource){
         return convertToResource(
