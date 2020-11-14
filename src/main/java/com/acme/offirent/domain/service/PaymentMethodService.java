@@ -11,11 +11,11 @@ import java.util.Optional;
 
 
 public interface PaymentMethodService {
-    //Page<Resource> findByAccountIdAndPaymentMethodId(Long AccountId, long PaymentMethodId);
+    Page<PaymentMethod> GetAllByAccountId(Long accountId, Pageable pageable);
 
     PaymentMethod getById(Long paymentMethodId);
     //crud?
-    PaymentMethod createPaymentMethod(PaymentMethod paymentMethod);
+    PaymentMethod createPaymentMethod(PaymentMethod paymentMethod, Long accountId);
     PaymentMethod updatePaymentMethod(Long paymentMethodId,PaymentMethod resourceRequest);
     ResponseEntity<?> deletePaymentMethod(Long paymentMethodId);
 }

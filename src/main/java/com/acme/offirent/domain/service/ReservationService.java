@@ -9,6 +9,7 @@ public interface ReservationService {
 
     Reservation getReservationByIdAndAccountId(Long accountId, Long reservationId);
     Page<Reservation> getAllReservationsByAccountId(Long accountId, Pageable pageable);
+    Page<Reservation> getAllReservationsByOfficeId(Long officeId, Pageable pageable);
     Reservation createReservation(Reservation reservation, Long accountId);
     Reservation updateReservation(Long reservationId, Reservation reservationRequest);
     ResponseEntity<?> deleteReservation(Long reservationId, Long accountId);

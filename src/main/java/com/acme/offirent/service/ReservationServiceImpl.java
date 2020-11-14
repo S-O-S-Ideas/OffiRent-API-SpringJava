@@ -32,6 +32,10 @@ public class ReservationServiceImpl implements ReservationService {
     public Page<Reservation> getAllReservationsByAccountId(Long accountId, Pageable pageable) {
         return reservationRepository.findByAccountId(accountId,pageable);
     }
+    @Override
+    public Page<Reservation> getAllReservationsByOfficeId(Long officeId, Pageable pageable) {
+        return reservationRepository.findByOfficeId(officeId,pageable);
+    }
 
     @Override
     public Reservation createReservation(Reservation reservation, Long accountId) {
