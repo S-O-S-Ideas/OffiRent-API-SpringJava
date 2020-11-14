@@ -44,14 +44,28 @@ public class ReservationsController {
         return new PageImpl<>(resources,pageable,resources.size());
     }
 
+    @Operation(summary = "Get all reservations by Account",description = "Get all reservations by given AccountId",tags = {"accounts"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/offices/{officeId}/reservations")
+    public Page<ReservationResource> getAllReservationsByOfficeId(
+            @PathVariable(name = "officeId") Long officeId, Pageable pageable){
+
+        Page<Reservation> reservationPage = reservationService.getAllReservationsByOfficeId(officeId,pageable);
+        List<ReservationResource> resources = reservationPage.getContent().stream().map(
+                this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }
+
     @Operation(summary = "Create Reservation ",description = "Create a new Reservation",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Reservation for given information",content =@Content(mediaType = "application/json") )
     })
-    @PostMapping("/accounts/{accountId}/reservations")
-    public ReservationResource createReservation(@PathVariable(name = "accountId") Long accountId, @Valid @RequestBody SaveReservationResource resource){
+    @PostMapping("/accounts/{accountId}/Office={officeId}/reservations")
+    public ReservationResource createReservation(@PathVariable(name = "accountId") Long accountId,@PathVariable(name = "officeId") Long officeId, @Valid @RequestBody SaveReservationResource resource){
         return convertToResource(
-                reservationService.createReservation(convertToEntity(resource),accountId));
+                reservationService.createReservation(convertToEntity(resource),accountId,officeId));
     }
 
     @Operation(summary = "Delete Reservation",description = "Delete Reservation for given Id",tags = {"accounts"})

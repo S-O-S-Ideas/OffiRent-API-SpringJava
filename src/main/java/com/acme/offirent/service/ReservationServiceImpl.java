@@ -1,7 +1,9 @@
 package com.acme.offirent.service;
 
+import com.acme.offirent.domain.model.Office;
 import com.acme.offirent.domain.model.Reservation;
 import com.acme.offirent.domain.repository.AccountRepository;
+import com.acme.offirent.domain.repository.OfficeRepository;
 import com.acme.offirent.domain.repository.ReservationRepository;
 import com.acme.offirent.domain.service.ReservationService;
 import com.acme.offirent.exception.ResourceNotFoundException;
@@ -19,6 +21,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private OfficeRepository officeRepository;
 
     @Override
     public Reservation getReservationByIdAndAccountId(Long accountId, Long reservationId) {
@@ -38,9 +43,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation createReservation(Reservation reservation, Long accountId) {
+    public Reservation createReservation(Reservation reservation, Long accountId, Long officeId) {
         return accountRepository.findById(accountId).map(account -> {
+            Office office = officeRepository.findById(officeId)
+                    .orElseThrow(()->new ResourceNotFoundException("Office","Id",officeId));
             reservation.setAccount(account);
+            reservation.setOffice(office);
             return reservationRepository.save(reservation);
         }).orElseThrow(()->new ResourceNotFoundException("Account","Id",accountId));
     }

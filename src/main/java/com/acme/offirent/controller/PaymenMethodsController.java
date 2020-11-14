@@ -55,7 +55,7 @@ public class PaymenMethodsController {
                 this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources,pageable,resources.size());
     }
-    
+
     @Operation(summary = "Create PaymentMethod ",description = "Enter a new Payment Method at register",tags = {"accounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new payment method for given information",content =@Content(mediaType = "application/json") )
