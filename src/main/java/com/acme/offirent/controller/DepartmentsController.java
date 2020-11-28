@@ -60,7 +60,7 @@ public class DepartmentsController {
             @ApiResponse(responseCode = "200", description = "Enter a new department for given information",content =@Content(mediaType = "application/json") )
     })
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/departments/")
+    @PostMapping("/departments")
     public DepartmentResource createDistrict(@Valid @RequestBody SaveDepartmentResource resource){
         return convertToResource(
                 departmentService.createDepartment(convertToEntity(resource)));
