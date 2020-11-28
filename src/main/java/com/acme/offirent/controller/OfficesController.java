@@ -112,8 +112,8 @@ public class OfficesController {
             @ApiResponse(responseCode = "200", description = "Update information of office for given Id",content =@Content(mediaType = "application/json") )
     })
     @PutMapping("/offices/{id}")
-    public OfficeResource updateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody SaveOfficeResource resource){
-        return convertToResource(officeService.updateOffice(officeId,convertToEntity(resource)));
+    public OfficeResource updateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody OfficeResource resource){
+        return convertToResource(officeService.updateOffice(officeId,convertToUpdateResource(resource)));
     }
 
     @Operation(summary = "Active Offices",description = "Active a deactivated Office",tags = {"offices"})
@@ -137,4 +137,6 @@ public class OfficesController {
     private Office convertToEntity(SaveOfficeResource resource){return  mapper.map(resource, Office.class);}
 
     private OfficeResource convertToResource(Office entity){return  mapper.map(entity,OfficeResource.class);}
+
+    private Office convertToUpdateResource(OfficeResource resource){return  mapper.map(resource,Office.class);}
 }
