@@ -1,6 +1,9 @@
 package com.acme.offirent.service;
 
+import com.acme.offirent.domain.model.Account;
+import com.acme.offirent.domain.repository.AccountRepository;
 import com.acme.offirent.domain.service.DefaultUserDetailsService;
+import com.acme.offirent.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,6 +23,9 @@ public class UserDetailsServiceImpl implements DefaultUserDetailsService {
     private static final List<GrantedAuthority> DEFAULT_AUTHORITIES = new ArrayList<>();
 
     @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -32,9 +38,10 @@ public class UserDetailsServiceImpl implements DefaultUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String defaultPassword = passwordEncoder.encode("password");
-        if(DEFAULT_USERNAME.equals(username)){
-            return new User(DEFAULT_USERNAME,defaultPassword,DEFAULT_AUTHORITIES);
+        Account account = accountRepository.findByEmail(username).orElseThrow(()->new ResourceNotFoundException("not found"));;
+        String defaultPassword = passwordEncoder.encode(account.getPassword());
+        if(account.getEmail().equals(username)){
+            return new User(account.getEmail(),defaultPassword,DEFAULT_AUTHORITIES);
         }
         throw new UsernameNotFoundException(String.format("User not found with username %s",username));
     }
