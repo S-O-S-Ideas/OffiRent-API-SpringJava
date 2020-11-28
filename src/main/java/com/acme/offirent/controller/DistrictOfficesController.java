@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class DistrictOfficesController {
 
@@ -33,7 +34,6 @@ public class DistrictOfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given district Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/districts/{districtId}/offices")
     public List<OfficeResource> getAllOfficesByDistrictId(@PathVariable(name="districtId") Long districtId, Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByDistrictId(districtId, pageable);

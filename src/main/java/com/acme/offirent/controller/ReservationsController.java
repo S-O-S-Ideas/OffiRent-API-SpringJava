@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ReservationsController {
 
@@ -34,7 +35,6 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{accountId}/reservations")
     public List<ReservationResource> getAllReservationsByAccountId(
             @PathVariable(name = "accountId") Long accountId, Pageable pageable){
@@ -50,7 +50,6 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices/{officeId}/reservations")
     public List<ReservationResource> getAllReservationsByOfficeId(
             @PathVariable(name = "officeId") Long officeId, Pageable pageable){
@@ -66,7 +65,6 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Reservation for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts/{accountId}/Office={officeId}/reservations")
     public ReservationResource createReservation(@PathVariable(name = "accountId") Long accountId,@PathVariable(name = "officeId") Long officeId, @Valid @RequestBody SaveReservationResource resource){
         return convertToResource(
@@ -77,7 +75,6 @@ public class ReservationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete Reservation for given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/accounts/{accountId}/reservations/{reservationId}")
     public ResponseEntity<?> deleteDistrict(
             @PathVariable(name = "accountId") Long accountId,

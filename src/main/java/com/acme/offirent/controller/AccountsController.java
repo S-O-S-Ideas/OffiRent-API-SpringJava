@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class AccountsController {
 
@@ -36,7 +37,6 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all accounts",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts")
     public List<AccountResource> getAllAccounts(Pageable pageable){
 
@@ -52,7 +52,6 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Account returned", content = @Content(mediaType = "application/json"))
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{id}")
     public AccountResource getAccountById(@PathVariable(name = "id") Long accountId){
         return convertToResource(accountService.getAccountById(accountId));
@@ -62,7 +61,6 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new account for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts")
     public AccountResource createAccount(@Valid @RequestBody SaveAccountResource resource){
         return convertToResource(
@@ -73,7 +71,6 @@ public class AccountsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Change the account information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/accounts/{accountId}")
     public  AccountResource activeOffice(@PathVariable(name = "accountId")Long accountId,@Valid @RequestBody SaveAccountResource resource){
         return  convertToResource(accountService.updateAccount(accountId,convertToEntity(resource)));

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class PaymenMethodsController {
 
@@ -35,7 +36,6 @@ public class PaymenMethodsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get PaymentMethod by given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/payment-methods/{paymentMethodId}")
     public PaymentMethodResource getPaymentMethodById(@PathVariable(name = "paymentMethodId") Long paymentMethodId){
 
@@ -47,7 +47,6 @@ public class PaymenMethodsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all reservations by given AccountId",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{accountId}/payment-methods")
     public List<PaymentMethodResource> getAllPaymentMethodsByAccountId(
             @PathVariable(name = "accountId") Long accountId, Pageable pageable){
@@ -63,7 +62,6 @@ public class PaymenMethodsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new payment method for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts/{accountId}/payment-methods")
     public PaymentMethodResource createPaymentMethod(@PathVariable(name = "accountId") Long accountId, @Valid @RequestBody SavePaymentMethodResource resource){
         return convertToResource(

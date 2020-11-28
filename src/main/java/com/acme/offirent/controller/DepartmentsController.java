@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class DepartmentsController {
 
@@ -33,7 +34,6 @@ public class DepartmentsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Departments",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/departments")
     public List<DepartmentResource> getAllDepartments(Pageable pageable){
 
@@ -49,7 +49,6 @@ public class DepartmentsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get department by a given departmentId",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/departments/{id}")
     public DepartmentResource getDepartmentById(@PathVariable(name = "id") Long departmentId){
         return convertToResource(departmentService.getDepartmentById(departmentId));
@@ -59,7 +58,6 @@ public class DepartmentsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new department for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/departments/")
     public DepartmentResource createDistrict(@Valid @RequestBody SaveDepartmentResource resource){
         return convertToResource(

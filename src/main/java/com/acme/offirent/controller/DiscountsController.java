@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class DiscountsController{
 
@@ -35,7 +36,6 @@ public class DiscountsController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Discounts returned", content = @Content(mediaType = "application/json"))
                 })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/discounts")
     public List<DiscountResource> getAllDiscounts(Pageable pageable){
 
@@ -52,17 +52,15 @@ public class DiscountsController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get discounts with by a given discountId",content =@Content(mediaType = "application/json") )
                 })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/discounts/{id}")
     public DiscountResource getDiscountById(@PathVariable(name = "id") Long discountId){
-        return convertToResource(discountService.getDiscountById(discountId)); 
+        return convertToResource(discountService.getDiscountById(discountId));
     }
 
     @Operation(summary = "Create Discounts ",description = "Create a new Discount",tags = {"discounts"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a new Discount for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/discounts")
     public DiscountResource createDiscount(@Valid @RequestBody SaveDiscountResource resource){
         return convertToResource(
@@ -74,7 +72,6 @@ public class DiscountsController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update information of discount for given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/discounts/{id}")
     public DiscountResource updateDiscount(@PathVariable(name = "id")   Long discountId,@Valid @RequestBody SaveDiscountResource resource){
         return convertToResource(discountService.updateDiscount(discountId,convertToEntity(resource)));
@@ -84,7 +81,6 @@ public class DiscountsController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete discount for given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/discounts/{id}")
     public ResponseEntity<?> deleteDiscount(@PathVariable(name="id") Long discountId){
         return discountService.deleteDiscount(discountId);

@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ResourcesController{
 
@@ -33,7 +34,6 @@ public class ResourcesController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all resources",content =@Content(mediaType = "application/json") )
                 })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/resources")
     public List<ResourceResource> getAllResource(Pageable pageable){
 
@@ -49,7 +49,6 @@ public class ResourcesController{
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get resources with by a given resourceId",content =@Content(mediaType = "application/json") )
                 })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/resources/{id}")
     public ResourceResource getResourceById(@PathVariable(name = "id") Long resourceId){
         return convertToResource(resourceService.getResourceById(resourceId)); 

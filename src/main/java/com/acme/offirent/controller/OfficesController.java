@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class OfficesController {
 
@@ -37,7 +38,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all offices",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices")
     public List<OfficeResource> getAllOffices(Pageable pageable){
 
@@ -52,7 +52,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given Account Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/accounts/{accountId}/offices")
     public List<OfficeResource> getAllOfficesByAccountId(@PathVariable(name = "accountId") Long accountId,Pageable pageable){
 
@@ -67,7 +66,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Office returned", content = @Content(mediaType = "application/json"))
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices/{officeId}")
     public OfficeResource getOfficeById(@PathVariable(name = "officeId") Long officeId){
         return convertToResource(officeService.getOfficeById(officeId));
@@ -77,7 +75,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Enter a new office for given information",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/accounts/{accountId}/District={districtId}/offices")
     public OfficeResource createOffice(@PathVariable(name = "accountId") Long accountId, @PathVariable(name = "districtId") Long districtId, @Valid @RequestBody SaveOfficeResource resource){
         return convertToResource(
@@ -88,7 +85,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all Offices by given price",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices?price={price}")
     public List<OfficeResource> getAllOfficesByPriceLessThanEqual(@PathVariable(name = "price") Float price, Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqual(price, pageable);
@@ -102,7 +98,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get all offices by given two prices",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/offices?maxprice={price1}&minprice={price2}")
     public List<OfficeResource> getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(@PathVariable(name = "price1") Float price1,@PathVariable(name = "price2") Float price2,  Pageable pageable){
         Page<Office> resourcePage = officeService.getAllOfficesByPriceLessThanEqualAndPriceGreaterThanEqual(price2, price1, pageable);
@@ -116,7 +111,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update information of office for given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/offices/{id}")
     public OfficeResource updateOffice(@PathVariable(name = "id")   Long officeId,@Valid @RequestBody SaveOfficeResource resource){
         return convertToResource(officeService.updateOffice(officeId,convertToEntity(resource)));
@@ -126,7 +120,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Change the office's status to activated",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/offices/{accountId}/{id}")
     public  OfficeResource activeOffice(@PathVariable(name = "accountId")Long accountId,@PathVariable(name = "id") Long officeId){
         return  convertToResource(officeService.activeOffice(accountId,officeId));
@@ -136,7 +129,6 @@ public class OfficesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete office for given Id",content =@Content(mediaType = "application/json") )
     })
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/offices/{id}")
     public ResponseEntity<?> deleteOffice(@PathVariable(name="id") Long officeId){
         return officeService.deleteOffice(officeId);
